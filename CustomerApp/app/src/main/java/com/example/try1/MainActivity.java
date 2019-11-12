@@ -11,9 +11,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    public final static String ORDER = "ORDER";
+    public final static String ORDER1 = "ORDER1";
+    public final static String ORDER2 = "ORDER2";
+    public final static String ORDER3 = "ORDER3";
 
-    ArrayList<String> order = new ArrayList<>();
+    String order1;
+    String order2;
+    String order3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Cart.class);
-                intent.putExtra(ORDER, order);
+                intent.putExtra(ORDER1, order1);
+                intent.putExtra(ORDER2, order2);
+                intent.putExtra(ORDER3, order3);
                 startActivity(intent);
             }
         });
@@ -36,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TextView ChickenChopTextView = findViewById(R.id.ChickenChopTextView);
-                order.add(ChickenChopTextView.getText().toString());
+                order1 = ChickenChopTextView.getText().toString();
 
             }
         });
@@ -46,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TextView FriesTextView = findViewById(R.id.FriesTextView);
-                order.add(FriesTextView.getText().toString());
+                order2= FriesTextView.getText().toString();
 
             }
         });
@@ -56,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TextView NuggetsTextView = findViewById(R.id.NuggetsTextView);
-                order.add(NuggetsTextView.getText().toString());
+                order3 = NuggetsTextView.getText().toString();
 
             }
         });

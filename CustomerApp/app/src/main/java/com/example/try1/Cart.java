@@ -16,11 +16,16 @@ public class Cart extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
         Intent mainToCart = getIntent();
-        ArrayList<String> orders  = mainToCart.getStringArrayListExtra(MainActivity.ORDER);
-        for (int i = 0; i < orders.size(); i++){
+        String order1  = mainToCart.getStringExtra(MainActivity.ORDER1);
+        String order2  = mainToCart.getStringExtra(MainActivity.ORDER2);
+        String order3  = mainToCart.getStringExtra(MainActivity.ORDER3);
 
-        }
         EditText Order1 = findViewById(R.id.editTextOrder1);
-        Order1.setText(order);
+        EditText Order2 = findViewById(R.id.editTextOrder2);
+        EditText Order3 = findViewById(R.id.editTextOrder3);
+
+        Order1.setText(order1);
+        Order2.setText(order2);
+        Order3.setText(order3);
     }
 }
