@@ -28,7 +28,7 @@
 
     <Button
         android:id="@+id/ChickenChopButton"
-        android:text="Add"
+        android:text="4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -41,7 +41,7 @@
 
     <Button
         android:id="@+id/FriesButton"
-        android:text="Add"
+        android:text="1.5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -54,7 +54,7 @@
 
     <Button
         android:id="@+id/NuggetsButton"
-        android:text="Add"
+        android:text="2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
