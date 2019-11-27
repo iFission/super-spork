@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     String order3;
     String price1;
     String price2;
+    String price3;
 
     TextView ChickenChopTextView;
     TextView FriesTextView;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(ORDER2, order2);
                 intent.putExtra(PRICE2, price2);
                 intent.putExtra(ORDER3, order3);
-                //intent.putExtra(PRICE3, price3);
+                intent.putExtra(PRICE3, price3);
                 startActivity(intent);
             }
         });
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 TextView ChickenChopTextView = findViewById(R.id.ChickenChopTextView);
                 order1 = ChickenChopTextView.getText().toString();
-                price1 = ChickenChopButton.getText().toString();
+                price1 = ChickenChopPrice.getText().toString();
                 //TextView textViewTry = findViewById(R.id.Try);
                 //textViewTry.setText(price1);
 
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 TextView FriesTextView = findViewById(R.id.FriesTextView);
                 order2= FriesTextView.getText().toString();
-                price2 = FriesButton.getText().toString();
+                price2 = FriesPrice.getText().toString();
 
             }
         });
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 TextView NuggetsTextView = findViewById(R.id.NuggetsTextView);
                 order3 = NuggetsTextView.getText().toString();
-                //price3 = NuggetsButton.getText().toString();
+                price3 = NuggetsPrice.getText().toString();
 
             }
         });
@@ -129,19 +130,19 @@ public class MainActivity extends AppCompatActivity {
                 DataSnapshot foodmenu1 = dataSnapshot.child("Menu");
                 Menu text1 = foodmenu1.getValue(Menu.class);             //Retrieves the value of menu in the database
                 ChickenChopTextView.setText(text1.getFoodName());
-                ChickenChopButton.setText(Double.toString(text1.getFoodPrice()));
+                ChickenChopPrice.setText(Double.toString(text1.getFoodPrice()));
                 //ChickenChopButton.setText("gasdg");
 
                 DataSnapshot foodmenu2 = dataSnapshot.child("Menu1");
                 Menu text2 = foodmenu2.getValue(Menu.class);
                 FriesTextView.setText(text2.getFoodName());
-                FriesButton.setText(Double.toString(text2.getFoodPrice()));
+                FriesPrice.setText(Double.toString(text2.getFoodPrice()));
                 //FriesButton.setText("fklasjdf");
 
                 DataSnapshot foodmenu3 = dataSnapshot.child("Menu2");
                 Menu text3 = foodmenu3.getValue(Menu.class);
                 NuggetsTextView.setText(text3.getFoodName());
-                NuggetsButton.setText(Double.toString(text3.getFoodPrice()));
+                NuggetsPrice.setText(Double.toString(text3.getFoodPrice()));
                 //NuggetsButton.setText("flksjdlfkj");
 
             }

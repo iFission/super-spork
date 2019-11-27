@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -36,10 +37,12 @@ public class Cart extends AppCompatActivity {
         EditText Order1 = findViewById(R.id.editTextOrder1);
         EditText Order2 = findViewById(R.id.editTextOrder2);
         EditText Order3 = findViewById(R.id.editTextOrder3);
+        TextView Order5 = findViewById(R.id.TextOrder5);
 
         Order1.setText(order1);
         Order2.setText(order2);
         Order3.setText(order3);
+        Order5.setText("Order5");
 
         ImageButton imageButton2 = findViewById(R.id.imageButton2);
         final TextView textView1 = findViewById(R.id.quantityTextView1);
@@ -124,7 +127,13 @@ public class Cart extends AppCompatActivity {
         });
 
 
+        Button orderbutton = findViewById(R.id.Ordernow);
+        orderbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
 
 

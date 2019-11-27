@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:text="Cart" />
+        android:text="My Cart" />
 
     <EditText
         android:id="@+id/editTextOrder1"
@@ -181,14 +181,15 @@
         android:layout_below="@id/quantityTextView3"/>
 
 
-    <EditText
-        android:id="@+id/editTextOrder5"
-        android:hint="Order5"
+    <TextView
+        android:id="@+id/TextOrder5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextOrder4"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextOrder4"/>
-
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="0dp"
+        android:hint="Order5" />
 
     <TextView
         android:id="@+id/quantityTextView5"
@@ -274,13 +275,13 @@
 
     <TextView
         android:id="@+id/totalTextView"
-        android:text="total"
-        android:paddingTop="60px"
-        android:paddingRight="40px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/quantityTextView5"
         android:layout_toLeftOf="@+id/imageButton12"
-        android:layout_below="@id/quantityTextView5"/>
+        android:paddingTop="60px"
+        android:paddingRight="40px"
+        android:text="0.0" />
 
     <TextView
         android:id="@+id/totalTextTextView"
@@ -291,5 +292,24 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/totalTextView"
         android:layout_below="@id/quantityTextView5"/>
+
+    <Button
+        android:id="@+id/Ordernow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextOrder5"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="150dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginEnd="151dp"
+        android:layout_marginRight="151dp"
+        android:layout_marginBottom="374dp"
+        android:text="Order Now!" />
 
 </RelativeLayout>
