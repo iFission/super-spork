@@ -39,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
     TextView ChickenChopTextView;
     TextView FriesTextView;
+    TextView NuggetsTextView;
+
+    Button ChickenChopPrice;
+    Button FriesPrice;
+    Button NuggetsPrice;
 
     DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
     //     Creates a location of menu underneath the roots, which can receive a value
@@ -52,7 +57,11 @@ public class MainActivity extends AppCompatActivity {
 
         ChickenChopTextView = (TextView) findViewById(R.id.ChickenChopTextView);
         FriesTextView = (TextView) findViewById(R.id.FriesTextView);
-        //ChickenChopTextView.setText("Okaylo");
+        NuggetsTextView = (TextView) findViewById(R.id.NuggetsTextView);
+
+        ChickenChopPrice = (Button) findViewById(R.id.ChickenChopButton);
+        FriesPrice = (Button) findViewById(R.id.FriesButton);
+        NuggetsPrice = (Button) findViewById(R.id.NuggetsButton);
 
         Button cart = findViewById(R.id.Cart);
         cart.setOnClickListener(new View.OnClickListener() {
@@ -76,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView ChickenChopTextView = findViewById(R.id.ChickenChopTextView);
                 order1 = ChickenChopTextView.getText().toString();
                 price1 = ChickenChopButton.getText().toString();
-                TextView textViewTry = findViewById(R.id.Try);
-                textViewTry.setText(price1);
+                //TextView textViewTry = findViewById(R.id.Try);
+                //textViewTry.setText(price1);
 
             }
         });
@@ -104,6 +113,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Menu mexican_chop = new Menu("Mexican Chicken Chop",4.5, "001");
+        mfoodRef.child("Menu").setValue(mexican_chop);
+        Menu aglio_olio = new Menu("Aglio Olio", 4.5, "002");
+        mfoodRef.child("Menu1").setValue(aglio_olio);
+        Menu fish_chips = new Menu("Fish and Chips",5.5,"003");
+        mfoodRef.child("Menu2").setValue(fish_chips);
+
         mfoodRef.addValueEventListener(new ValueEventListener() {
 
             //Will run everytime there is an update to the condition value in the database
@@ -112,12 +128,21 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 DataSnapshot foodmenu1 = dataSnapshot.child("Menu");
                 Menu text1 = foodmenu1.getValue(Menu.class);             //Retrieves the value of menu in the database
-                ChickenChopTextView.setText(text1.foodName);
+                ChickenChopTextView.setText(text1.getFoodName());
+                ChickenChopButton.setText(Double.toString(text1.getFoodPrice()));
+                //ChickenChopButton.setText("gasdg");
 
                 DataSnapshot foodmenu2 = dataSnapshot.child("Menu1");
                 Menu text2 = foodmenu2.getValue(Menu.class);
-                FriesTextView.setText(text2.foodName);
+                FriesTextView.setText(text2.getFoodName());
+                FriesButton.setText(Double.toString(text2.getFoodPrice()));
+                //FriesButton.setText("fklasjdf");
 
+                DataSnapshot foodmenu3 = dataSnapshot.child("Menu2");
+                Menu text3 = foodmenu3.getValue(Menu.class);
+                NuggetsTextView.setText(text3.getFoodName());
+                NuggetsButton.setText(Double.toString(text3.getFoodPrice()));
+                //NuggetsButton.setText("flksjdlfkj");
 
             }
 
