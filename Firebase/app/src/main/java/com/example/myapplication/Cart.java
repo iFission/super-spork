@@ -150,12 +150,13 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Context context = getApplicationContext();
-                CharSequence text = "please work";
+                CharSequence text = "Order sent!";
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
 
+                //Preparing the data to be written to Firebase by placing orders in an ArrayList
                 ArrayList<OrderDetails> CustomerOrder= new ArrayList<OrderDetails>();
                 for (int i =0; i<i1; i++){
                     CustomerOrder.add(new OrderDetails("001",i,false));
@@ -164,9 +165,10 @@ public class Cart extends AppCompatActivity {
                     CustomerOrder.add(new OrderDetails("002",10+j,false));
                 }
 
-//                for (OrderDetails orders: CustomerOrder){
-//                    mWesternStall.child(Integer.toString(orders.getOrderCode())).setValue(orders);
-//                }
+                //Responsible for writing the order to Firebase Western Order Queue tree
+                for (OrderDetails orders: CustomerOrder){
+                    mWesternStall.child(Integer.toString(orders.getOrderCode())).setValue(orders);
+                }
             }
         });
 
