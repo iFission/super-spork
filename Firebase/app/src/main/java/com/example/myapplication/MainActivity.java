@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
     //     Creates a location of menu underneath the roots, which can receive a value
     DatabaseReference mfoodRef = mRootRef.child("Menu");
+    DatabaseReference mcustomerRef = mRootRef.child("CustomerList");
+    DatabaseReference mWesternStall = mRootRef.child("WesternOrderQueue");
     DatabaseReference mconditionRef = mRootRef.child("condition");
 
     @Override
@@ -120,6 +122,33 @@ public class MainActivity extends AppCompatActivity {
         mfoodRef.child("Menu1").setValue(aglio_olio);
         Menu fish_chips = new Menu("Fish and Chips",5.5,"003");
         mfoodRef.child("Menu2").setValue(fish_chips);
+
+        //Creating orders from the menu for the customer details for CUSTOMER LIST
+        OrderDetails order1 = new OrderDetails(mexican_chop.getFoodCode(),1,false);
+        ArrayList<OrderDetails> customer1Orders= new ArrayList<OrderDetails>();
+        customer1Orders.add(order1);
+
+        OrderDetails order2 = new OrderDetails(aglio_olio.getFoodCode(),2,true);
+        customer1Orders.add(order2);
+
+        OrderDetails order3 = new OrderDetails(aglio_olio.getFoodCode(),3,true);
+        customer1Orders.add(order3);
+
+        //Populating the database
+        //Create a customer class
+        CustomerDetails customer1 = new CustomerDetails(1,customer1Orders);
+        mcustomerRef.child("Customer1").child("ID").setValue(customer1.getCustomerID());        //Add their ID, can be used for authentication if we take it further
+        //Ordercode is used as the child header
+        for (OrderDetails order: customer1Orders){
+            mcustomerRef.child("Customer1").child(Integer.toString(order.getOrderCode())).setValue(order);
+        }
+
+        //Creating Western Order queue child database
+        for (OrderDetails Orders : customer1Orders){
+            if (Orders.getOrderStatus()==false){
+                mWesternStall.child("Order to complete").setValue(Orders);
+            }
+        }
 
         mfoodRef.addValueEventListener(new ValueEventListener() {
 
