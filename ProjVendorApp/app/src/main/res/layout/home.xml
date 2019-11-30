@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAF7F7"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <!-- Include other widget or layout tags here. These are considered
+            "child views" or "children" of the linear layout -->
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="30dp"
+        android:text="♨ORDERS TO PREPARE♨"
+        android:textAlignment="center"
+        android:textColor="#991F15"
+        android:textColorHighlight="#00EBD3D3"
+        android:textSize="20dp"
+         />
+
+    <TextView
+        android:id="@+id/textview1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:background="#EFF1D6"
+        android:clickable="true"
+        android:paddingLeft="20dp"
+        android:paddingTop="40dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="40dp"
+        android:text="Order#1234:Chicken Chop with Fires"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        />
+
+    <TextView
+        android:id="@+id/textview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview1"
+        android:background="#E6E6A0"
+        android:paddingLeft="20dp"
+        android:paddingTop="40dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="40dp"
+        android:text="Order#1234:Chicken Chop with Fires"
+        android:textAlignment="center"
+        android:textColor="#000000"
+         />
+
+
+    <TextView
+        android:id="@+id/textview3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview2"
+        android:background="#EFF1D6"
+        android:paddingLeft="20dp"
+        android:paddingTop="40dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="40dp"
+        android:text="Order#1234:Chicken Chop with Fires"
+        android:textAlignment="center"
+        android:textColor="#000000"
+         />
+
+    <TextView
+        android:id="@+id/textview4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview3"
+        android:background="#E6E6A0"
+        android:paddingLeft="20dp"
+        android:paddingTop="40dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="40dp"
+        android:text="Order#1234:Chicken Chop with Fires"
+        android:textAlignment="center"
+        android:textColor="#000000"
+         />
+
+    <TextView
+        android:id="@+id/textview5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview4"
+        android:background="#EFF1D6"
+        android:paddingLeft="20dp"
+        android:paddingTop="40dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="40dp"
+        android:text="Order#1234:Chicken Chop with Fires"
+        android:textAlignment="center"
+        android:textColor="#000000"
+         />
+
+    <Button
+        android:id="@+id/addmenuitembutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview5"
+        android:layout_alignParentRight="true"
+        android:background="#82B1FF"
+        android:padding="5dp"
+        android:text="Add Menu Item"
+        android:textAlignment="center" />
+
+</RelativeLayout>
