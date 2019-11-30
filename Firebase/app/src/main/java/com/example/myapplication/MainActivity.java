@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -150,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        //For updating the price list and menu for the day.
         mfoodRef.addValueEventListener(new ValueEventListener() {
 
             //Will run everytime there is an update to the condition value in the database

@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -20,6 +25,11 @@ public class Cart extends AppCompatActivity {
     String price2;
     String price3;
     double total = 0;
+
+    DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
+    DatabaseReference mfoodRef = mRootRef.child("Menu");
+    DatabaseReference mcustomerRef = mRootRef.child("CustomerList");
+    DatabaseReference mWesternStall = mRootRef.child("WesternOrderQueue");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +44,7 @@ public class Cart extends AppCompatActivity {
         String order3  = mainToCart.getStringExtra(MainActivity.ORDER3);
         price3 = mainToCart.getStringExtra(MainActivity.PRICE3);
 
-        EditText Order1 = findViewById(R.id.editTextOrder1);
+        final EditText Order1 = findViewById(R.id.editTextOrder1);
         EditText Order2 = findViewById(R.id.editTextOrder2);
         EditText Order3 = findViewById(R.id.editTextOrder3);
         TextView Order5 = findViewById(R.id.TextOrder5);
@@ -54,10 +64,12 @@ public class Cart extends AppCompatActivity {
                 Log.i("Tiff", "" +i1);
                 textView1.setText("" + i1);
 
-                double individualPrice = CalculatePrice.calculatePrice(price1,""+ i1);
+                double individualPrice = CalculatePrice.calculatePrice(price1,""+ i1);;
                 EditText Price1 = findViewById(R.id.Price1);
                 Price1.setText(Double.toString(individualPrice));
-                total += new Double(price1);
+                if (total>=0) {
+                    total += new Double(price1);
+                }
                 TextView totalTextView = findViewById(R.id.totalTextView);
                 totalTextView.setText(Double.toString(total));
 
@@ -77,7 +89,9 @@ public class Cart extends AppCompatActivity {
                 double individualPrice = CalculatePrice.calculatePrice(price1,""+ i1);
                 EditText Price1 = findViewById(R.id.Price1);
                 Price1.setText(Double.toString(individualPrice));
-                total -= new Double(price1);
+                if (total>0) {
+                    total -= new Double(price1);
+                }
                 TextView totalTextView = findViewById(R.id.totalTextView);
                 totalTextView.setText(Double.toString(total));
 
@@ -98,7 +112,9 @@ public class Cart extends AppCompatActivity {
 
                 double individualPrice = CalculatePrice.calculatePrice(price2,""+ i2);
                 EditText Price2 = findViewById(R.id.Price2);
-                total += new Double(price2);
+                if (total>=0) {
+                    total += new Double(price2);
+                }
                 Price2.setText(Double.toString(individualPrice));
                 TextView totalTextView = findViewById(R.id.totalTextView);
                 totalTextView.setText(Double.toString(total));
@@ -118,7 +134,9 @@ public class Cart extends AppCompatActivity {
 
                 double individualPrice = CalculatePrice.calculatePrice(price2,""+ i2);
                 EditText Price2 = findViewById(R.id.Price2);
-                total -= new Double(price2);
+                if (total>0) {
+                    total -= new Double(price2);
+                }
                 Price2.setText(Double.toString(individualPrice));
                 TextView totalTextView = findViewById(R.id.totalTextView);
                 totalTextView.setText(Double.toString(total));
@@ -131,7 +149,24 @@ public class Cart extends AppCompatActivity {
         orderbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Context context = getApplicationContext();
+                CharSequence text = "please work";
+                int duration = Toast.LENGTH_SHORT;
 
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+
+                ArrayList<OrderDetails> CustomerOrder= new ArrayList<OrderDetails>();
+                for (int i =0; i<i1; i++){
+                    CustomerOrder.add(new OrderDetails("001",i,false));
+                }
+                for (int j=0; j<i2; j++){
+                    CustomerOrder.add(new OrderDetails("002",10+j,false));
+                }
+
+//                for (OrderDetails orders: CustomerOrder){
+//                    mWesternStall.child(Integer.toString(orders.getOrderCode())).setValue(orders);
+//                }
             }
         });
 

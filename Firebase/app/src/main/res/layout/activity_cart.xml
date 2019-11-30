@@ -7,6 +7,20 @@
     android:orientation="vertical"
     tools:context=".Cart">
 
+    <Button
+        android:id="@+id/Ordernow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginRight="162dp"
+        android:layout_marginBottom="326dp"
+        android:text="Order Now!" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -292,24 +306,5 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/totalTextView"
         android:layout_below="@id/quantityTextView5"/>
-
-    <Button
-        android:id="@+id/Ordernow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/TextOrder5"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:layout_marginStart="150dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="82dp"
-        android:layout_marginEnd="151dp"
-        android:layout_marginRight="151dp"
-        android:layout_marginBottom="374dp"
-        android:text="Order Now!" />
 
 </RelativeLayout>
