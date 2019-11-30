@@ -30,15 +30,23 @@ public class MainActivity extends AppCompatActivity {
     public final static String ORDER1 = "ORDER1";
     public final static String ORDER2 = "ORDER2";
     public final static String ORDER3 = "ORDER3";
+    public final static String ORDER4 = "ORDER4";
+    public final static String ORDER5 = "ORDER5";
     public final static String PRICE1 = "PRICE1";
     public final static String PRICE2 = "PRICE2";
     public final static String PRICE3 = "PRICE3";
+    public final static String PRICE4 = "PRICE4";
+    public final static String PRICE5 = "PRICE5";
     String order1;
     String order2;
     String order3;
+    String order4;
+    String order5;
     String price1;
     String price2;
     String price3;
+    String price4;
+    String price5;
 
     TextView ChickenChopTextView;
     TextView FriesTextView;
@@ -79,6 +87,10 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(PRICE2, price2);
                 intent.putExtra(ORDER3, order3);
                 intent.putExtra(PRICE3, price3);
+                intent.putExtra(ORDER4, order4);
+                intent.putExtra(PRICE4, price4);
+                intent.putExtra(ORDER5, order5);
+                intent.putExtra(PRICE5, price5);
                 startActivity(intent);
             }
         });
@@ -118,39 +130,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Menu mexican_chop = new Menu("Mexican Chicken Chop",4.5, "001");
-        mfoodRef.child("Menu").setValue(mexican_chop);
-        Menu aglio_olio = new Menu("Aglio Olio", 4.5, "002");
-        mfoodRef.child("Menu1").setValue(aglio_olio);
-        Menu fish_chips = new Menu("Fish and Chips",5.5,"003");
-        mfoodRef.child("Menu2").setValue(fish_chips);
-
-        //Creating orders from the menu for the customer details for CUSTOMER LIST
-        OrderDetails order1 = new OrderDetails(mexican_chop.getFoodCode(),1,false);
-        ArrayList<OrderDetails> customer1Orders= new ArrayList<OrderDetails>();
-        customer1Orders.add(order1);
-
-        OrderDetails order2 = new OrderDetails(aglio_olio.getFoodCode(),2,true);
-        customer1Orders.add(order2);
-
-        OrderDetails order3 = new OrderDetails(aglio_olio.getFoodCode(),3,true);
-        customer1Orders.add(order3);
-
-        //Populating the database
-        //Create a customer class
-        CustomerDetails customer1 = new CustomerDetails(1,customer1Orders);
-        mcustomerRef.child("Customer1").child("ID").setValue(customer1.getCustomerID());        //Add their ID, can be used for authentication if we take it further
-        //Ordercode is used as the child header
-        for (OrderDetails order: customer1Orders){
-            mcustomerRef.child("Customer1").child(Integer.toString(order.getOrderCode())).setValue(order);
-        }
-
-        //Creating Western Order queue child database
-        for (OrderDetails Orders : customer1Orders){
-            if (Orders.getOrderStatus()==false){
-                mWesternStall.child("Order to complete").setValue(Orders);
-            }
-        }
+//        Menu mexican_chop = new Menu("Mexican Chicken Chop",4.5, "001");
+//        mfoodRef.child("Menu").setValue(mexican_chop);
+//        Menu aglio_olio = new Menu("Aglio Olio", 4.5, "002");
+//        mfoodRef.child("Menu1").setValue(aglio_olio);
+//        Menu fish_chips = new Menu("Fish and Chips",5.5,"003");
+//        mfoodRef.child("Menu2").setValue(fish_chips);
+//        Menu spaghetti = new Menu("Spaghetti Bolgnese",4,"004");
+//        mfoodRef.child("Menu3").setValue(spaghetti);
+//        Menu breaded_fish = new Menu("Breaded Fish Set",5,"005");
+//        mfoodRef.child("Menu4").setValue(breaded_fish);
+//
+//        //Creating orders from the menu for the customer details for CUSTOMER LIST
+//        OrderDetails order1 = new OrderDetails(mexican_chop.getFoodCode(),1,false);
+//        ArrayList<OrderDetails> customer1Orders= new ArrayList<OrderDetails>();
+//        customer1Orders.add(order1);
+//
+//        OrderDetails order2 = new OrderDetails(aglio_olio.getFoodCode(),2,true);
+//        customer1Orders.add(order2);
+//
+//        OrderDetails order3 = new OrderDetails(aglio_olio.getFoodCode(),3,true);
+//        customer1Orders.add(order3);
+//
+//        //Populating the database
+//        //Create a customer class
+//        CustomerDetails customer1 = new CustomerDetails(1,customer1Orders);
+//        mcustomerRef.child("Customer1").child("ID").setValue(customer1.getCustomerID());        //Add their ID, can be used for authentication if we take it further
+//        //Ordercode is used as the child header
+//        for (OrderDetails order: customer1Orders){
+//            mcustomerRef.child("Customer1").child(Integer.toString(order.getOrderCode())).setValue(order);
+//        }
+//
+//        //Creating Western Order queue child database
+//        for (OrderDetails Orders : customer1Orders){
+//            if (Orders.getOrderStatus()==false){
+//                mWesternStall.child("Order to complete").setValue(Orders);
+//            }
+//        }
 
         //For updating the price list and menu for the day.
         mfoodRef.addValueEventListener(new ValueEventListener() {
@@ -176,6 +192,16 @@ public class MainActivity extends AppCompatActivity {
                 NuggetsTextView.setText(text3.getFoodName());
                 NuggetsPrice.setText(Double.toString(text3.getFoodPrice()));
                 //NuggetsButton.setText("flksjdlfkj");
+
+                DataSnapshot foodmenu4 = dataSnapshot.child("Menu3");
+                Menu text4 = foodmenu4.getValue(Menu.class);
+                order4 = text4.getFoodName();
+                price4 = String.valueOf(text4.getFoodPrice());
+
+                DataSnapshot foodmenu5 = dataSnapshot.child("Menu4");
+                Menu text5 = foodmenu5.getValue(Menu.class);
+                order5 = text5.getFoodName();
+                price5 = String.valueOf(text5.getFoodPrice());
 
             }
 

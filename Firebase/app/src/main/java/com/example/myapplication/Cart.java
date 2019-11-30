@@ -24,6 +24,8 @@ public class Cart extends AppCompatActivity {
     String price1;
     String price2;
     String price3;
+    String price4;
+    String price5;
     double total = 0;
 
     DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
@@ -43,16 +45,33 @@ public class Cart extends AppCompatActivity {
         price2 = mainToCart.getStringExtra(MainActivity.PRICE2);
         String order3  = mainToCart.getStringExtra(MainActivity.ORDER3);
         price3 = mainToCart.getStringExtra(MainActivity.PRICE3);
+        String order4  = mainToCart.getStringExtra(MainActivity.ORDER4);
+        price4 = mainToCart.getStringExtra(MainActivity.PRICE4);
+        String order5  = mainToCart.getStringExtra(MainActivity.ORDER5);
+        price5 = mainToCart.getStringExtra(MainActivity.PRICE5);
 
         final EditText Order1 = findViewById(R.id.editTextOrder1);
         EditText Order2 = findViewById(R.id.editTextOrder2);
         EditText Order3 = findViewById(R.id.editTextOrder3);
+        EditText Order4 = findViewById(R.id.editTextOrder4);
         TextView Order5 = findViewById(R.id.TextOrder5);
+        EditText Price1 = findViewById(R.id.Price1);
+        EditText Price2 = findViewById(R.id.Price2);
+
+        //Please create some text views for price 3,4,5 with the references, Price3, Price4, Price5
 
         Order1.setText(order1);
         Order2.setText(order2);
         Order3.setText(order3);
-        Order5.setText("Order5");
+        Order4.setText(order4);
+        Order5.setText(order5);
+        Price1.setText(price1);
+        Price2.setText(price2);
+
+        //Uncomment these lines once you create the views
+//        Price3.setText(price3);
+//        Price4.setText(price4);
+//        Price5.setText(price5);
 
         ImageButton imageButton2 = findViewById(R.id.imageButton2);
         final TextView textView1 = findViewById(R.id.quantityTextView1);
