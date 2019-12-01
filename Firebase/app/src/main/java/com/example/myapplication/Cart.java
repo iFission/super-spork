@@ -64,7 +64,8 @@ public class Cart extends AppCompatActivity {
         Order2.setText(order2);
         Order3.setText(order3);
         Order4.setText(order4);
-        Order5.setText(order5);
+        //Order5.setVisibility(View.INVISIBLE);
+        //Order5.setText(order5);
         Price1.setText(price1);
         Price2.setText(price2);
 
@@ -163,6 +164,8 @@ public class Cart extends AppCompatActivity {
             }
         });
 
+        OrderDetails trialOrder = new OrderDetails("001", 0,false);
+        mWesternStall.child("0").setValue(trialOrder);
 
         Button orderbutton = findViewById(R.id.Ordernow);
         orderbutton.setOnClickListener(new View.OnClickListener() {
