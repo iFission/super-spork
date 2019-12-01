@@ -19,6 +19,7 @@ public class Cart extends AppCompatActivity {
     String price2;
     String price3;
     double total = 0;
+    int var = R.id.imageButton2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class Cart extends AppCompatActivity {
         Order2.setText(order2);
         Order3.setText(order3);
 
-        ImageButton imageButton2 = findViewById(R.id.imageButton2);
+        ImageButton imageButton2 = findViewById(var);
         final TextView textView1 = findViewById(R.id.quantityTextView1);
         imageButton2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +124,8 @@ public class Cart extends AppCompatActivity {
             }
         });
 
+        // dictionary that has all the widgets associated
+        //
 
 
 
