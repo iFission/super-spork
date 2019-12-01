@@ -85,9 +85,7 @@ public class Home extends AppCompatActivity {
                     mcustomerRef.child(foodCodes.get(0)).child("orderStatus").setValue(true);
                     mWesternStall.child(foodCodes.get(0)).removeValue();
                     finish();
-                    overridePendingTransition(0, 0);
                     startActivity(getIntent());
-                    overridePendingTransition(0, 0);
                 }
             }
         });
@@ -143,8 +141,8 @@ public class Home extends AppCompatActivity {
                 }
             }
         });
-        addmenuitembutton.setOnClickListener(new View.OnClickListener() {
 
+        addmenuitembutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ListActivity.class);
@@ -192,6 +190,7 @@ public class Home extends AppCompatActivity {
                 //Applying string for textView.setText()
                 int i=0;
                 for (HashMap.Entry<String,String> eachOrder : viewTexts.entrySet()){
+                    textViews[i].setVisibility(View.VISIBLE);
                     textViews[i].setText(eachOrder.getValue());
                     foodCodes.add(eachOrder.getKey());
                     i++;

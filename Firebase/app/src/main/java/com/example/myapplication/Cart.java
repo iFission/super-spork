@@ -30,7 +30,7 @@ public class Cart extends AppCompatActivity {
 
     DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
     DatabaseReference mfoodRef = mRootRef.child("Menu");
-    DatabaseReference mcustomerRef = mRootRef.child("CustomerList");
+    DatabaseReference mcustomerRef = mRootRef.child("CustomerList").child("Customer1");
     DatabaseReference mWesternStall = mRootRef.child("WesternOrderQueue");
 
     @Override
@@ -50,38 +50,34 @@ public class Cart extends AppCompatActivity {
         String order5  = mainToCart.getStringExtra(MainActivity.ORDER5);
         price5 = mainToCart.getStringExtra(MainActivity.PRICE5);
 
-        final TextView Order1 = findViewById(R.id.editTextOrder1);
+        TextView Order1 = findViewById(R.id.editTextOrder1);
         TextView Order2 = findViewById(R.id.editTextOrder2);
         TextView Order3 = findViewById(R.id.editTextOrder3);
         TextView Order4 = findViewById(R.id.editTextOrder4);
         TextView Order5 = findViewById(R.id.editTextOrder5);
         TextView Price1 = findViewById(R.id.Price1);
         TextView Price2 = findViewById(R.id.Price2);
-
-        //Please create some text views for price 3,4,5 with the references, Price3, Price4, Price5
+        TextView Price3 = findViewById(R.id.Price3);
+        TextView Price4 = findViewById(R.id.Price4);
+        TextView Price5 = findViewById(R.id.Price5);
 
         Order1.setText(order1);
         Order2.setText(order2);
         Order3.setText(order3);
         Order4.setText(order4);
         //Order5.setVisibility(View.INVISIBLE);
-        //Order5.setText(order5);
+        Order5.setText(order5);
         Price1.setText(price1);
         Price2.setText(price2);
-
-        //Uncomment these lines once you create the views
-//        Price3.setText(price3);
-//        Price4.setText(price4);
-//        Price5.setText(price5);
-
+        Price3.setText(price3);
+        Price4.setText(price4);
+        Price5.setText(price5);
         ImageButton imageButton2 = findViewById(R.id.imageButton2);
         final TextView textView1 = findViewById(R.id.quantityTextView1);
         imageButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Tiff", "Button Clicked");
                 i1+=1;
-                Log.i("Tiff", "" +i1);
                 textView1.setText("" + i1);
 
                 double individualPrice = CalculatePrice.calculatePrice(price1,""+ i1);;
@@ -101,9 +97,7 @@ public class Cart extends AppCompatActivity {
         imageButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Tiff", "Button Clicked");
                 if(i1>0){i1 -=1;}
-                Log.i("Tiff", "" +i1);
                 textView1.setText("" + i1);
 
                 double individualPrice = CalculatePrice.calculatePrice(price1,""+ i1);
@@ -125,9 +119,7 @@ public class Cart extends AppCompatActivity {
         imageButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Tiff", "Button Clicked");
                 i2+=1;
-                Log.i("Tiff", "" +i2);
                 textView2.setText("" + i2);
 
                 double individualPrice = CalculatePrice.calculatePrice(price2,""+ i2);
@@ -147,9 +139,26 @@ public class Cart extends AppCompatActivity {
         imageButton5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Tiff", "Button Clicked");
                 if(i2>0){i2 -=1;}
-                Log.i("Tiff", "" +i2);
+                textView2.setText("" + i2);
+
+                double individualPrice = CalculatePrice.calculatePrice(price2,""+ i2);
+                TextView Price2 = findViewById(R.id.Price2);
+                if (total>0) {
+                    total -= new Double(price2);
+                }
+                Price2.setText(Double.toString(individualPrice));
+                TextView totalTextView = findViewById(R.id.totalTextView);
+                totalTextView.setText(Double.toString(total));
+
+            }
+        });
+
+        ImageButton imageButton6 = findViewById(R.id.imageButton6);
+        imageButton6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(i2>0){i2 -=1;}
                 textView2.setText("" + i2);
 
                 double individualPrice = CalculatePrice.calculatePrice(price2,""+ i2);
@@ -190,11 +199,19 @@ public class Cart extends AppCompatActivity {
                 //Responsible for writing the order to Firebase Western Order Queue tree
                 for (OrderDetails orders: CustomerOrder){
                     mWesternStall.child(Integer.toString(orders.getOrderCode())).setValue(orders);
+                    mcustomerRef.child(Integer.toString(orders.getOrderCode())).setValue(orders);
                 }
             }
         });
 
-
+        Button myOrders = findViewById(R.id.MyOrders);
+        myOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Cart.this, Orders.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

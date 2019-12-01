@@ -7,6 +7,9 @@ public class OrderDetails {
     private int orderCode;          //This needs to be unique so we can track who is the one who orders first
     private boolean orderStatus;
 
+    OrderDetails(){
+
+    }
     public String getFoodCode() {
         return foodCode;
     }

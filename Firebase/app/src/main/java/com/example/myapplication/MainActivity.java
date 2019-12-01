@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference mfoodRef = mRootRef.child("Menu");
     DatabaseReference mcustomerRef = mRootRef.child("CustomerList");
     DatabaseReference mWesternStall = mRootRef.child("WesternOrderQueue");
-    DatabaseReference mconditionRef = mRootRef.child("condition");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
