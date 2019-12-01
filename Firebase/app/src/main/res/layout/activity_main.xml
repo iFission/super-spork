@@ -11,17 +11,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Western Food Menu"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Waiting Time"/>
+        android:text="♨Western Food♨"
+        android:textAlignment="center"
+        android:textColor="#991F15"
+        android:textColorHighlight="#00EBD3D3"
+        android:textSize="30dp"
+        android:layout_marginBottom="10dp"/>
 
     <TextView
         android:id="@+id/ChickenChopTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:background="#EFF1D6"
+        android:textColor="#000000"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Chicken Chop"/>
@@ -30,14 +36,22 @@
         android:id="@+id/ChickenChopButton"
         android:text="4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/FriesTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Fries"/>
+        android:text="Fries"
+        android:background="#E6E6A0"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"/>
 
     <Button
         android:id="@+id/FriesButton"
@@ -47,10 +61,17 @@
 
     <TextView
         android:id="@+id/NuggetsTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Nuggets"/>
+        android:text="Nuggets"
+        android:background="#EFF1D6"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:textAlignment="center"
+        android:textColor="#000000"/>
 
     <Button
         android:id="@+id/NuggetsButton"
@@ -58,11 +79,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <TextView
+        android:id="@+id/SteakTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E6E6A0"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:text="Steak"/>
+
+    <Button
+        android:id="@+id/SteakButton"
+        android:text="5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/spaghettiTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="spaghetti"
+        android:background="#EFF1D6"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
+        android:textAlignment="center"
+        android:textColor="#000000"/>
+
+    <Button
+        android:id="@+id/spaghettiButton"
+        android:text="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <Button
         android:id="@+id/Cart"
-        android:text="Cart"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Cart" />
 
 </LinearLayout>
