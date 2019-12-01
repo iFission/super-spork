@@ -50,13 +50,13 @@ public class Cart extends AppCompatActivity {
         String order5  = mainToCart.getStringExtra(MainActivity.ORDER5);
         price5 = mainToCart.getStringExtra(MainActivity.PRICE5);
 
-        final EditText Order1 = findViewById(R.id.editTextOrder1);
-        EditText Order2 = findViewById(R.id.editTextOrder2);
-        EditText Order3 = findViewById(R.id.editTextOrder3);
-        EditText Order4 = findViewById(R.id.editTextOrder4);
-        TextView Order5 = findViewById(R.id.TextOrder5);
-        EditText Price1 = findViewById(R.id.Price1);
-        EditText Price2 = findViewById(R.id.Price2);
+        final TextView Order1 = findViewById(R.id.editTextOrder1);
+        TextView Order2 = findViewById(R.id.editTextOrder2);
+        TextView Order3 = findViewById(R.id.editTextOrder3);
+        TextView Order4 = findViewById(R.id.editTextOrder4);
+        TextView Order5 = findViewById(R.id.editTextOrder5);
+        TextView Price1 = findViewById(R.id.Price1);
+        TextView Price2 = findViewById(R.id.Price2);
 
         //Please create some text views for price 3,4,5 with the references, Price3, Price4, Price5
 
@@ -84,7 +84,7 @@ public class Cart extends AppCompatActivity {
                 textView1.setText("" + i1);
 
                 double individualPrice = CalculatePrice.calculatePrice(price1,""+ i1);;
-                EditText Price1 = findViewById(R.id.Price1);
+                TextView Price1 = findViewById(R.id.Price1);
                 Price1.setText(Double.toString(individualPrice));
                 if (total>=0) {
                     total += new Double(price1);
@@ -106,7 +106,7 @@ public class Cart extends AppCompatActivity {
                 textView1.setText("" + i1);
 
                 double individualPrice = CalculatePrice.calculatePrice(price1,""+ i1);
-                EditText Price1 = findViewById(R.id.Price1);
+                TextView Price1 = findViewById(R.id.Price1);
                 Price1.setText(Double.toString(individualPrice));
                 if (total>0) {
                     total -= new Double(price1);
@@ -130,7 +130,7 @@ public class Cart extends AppCompatActivity {
                 textView2.setText("" + i2);
 
                 double individualPrice = CalculatePrice.calculatePrice(price2,""+ i2);
-                EditText Price2 = findViewById(R.id.Price2);
+                TextView Price2 = findViewById(R.id.Price2);
                 if (total>=0) {
                     total += new Double(price2);
                 }
@@ -152,7 +152,7 @@ public class Cart extends AppCompatActivity {
                 textView2.setText("" + i2);
 
                 double individualPrice = CalculatePrice.calculatePrice(price2,""+ i2);
-                EditText Price2 = findViewById(R.id.Price2);
+                TextView Price2 = findViewById(R.id.Price2);
                 if (total>0) {
                     total -= new Double(price2);
                 }
