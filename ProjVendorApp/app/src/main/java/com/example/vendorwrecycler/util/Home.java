@@ -37,8 +37,9 @@ public class Home extends AppCompatActivity {
     Button addmenuitembutton;
     HashMap<String ,String> todayMenu = new HashMap<>();                //FoodCode : FoodMenu
     ArrayList<OrderDetails> currentOrders = new ArrayList<>();
-    HashMap<String,String> viewTexts = new HashMap<>();                 //FoodCode : (FoodName + FoodCode)
+    HashMap<String,String> viewTexts = new HashMap<>();                 //OrderCode : (FoodName + FoodCode)
     TextView[] textViews = new TextView[5];
+    ArrayList<String> foodCodes = new ArrayList<>();
 
     DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
     DatabaseReference mfoodRef = mRootRef.child("Menu");
@@ -64,7 +65,16 @@ public class Home extends AppCompatActivity {
 
 
 
-        //textView1.setText("fklaj");
+//        for (int i=0;i<5;i++){
+//            textViews[i].setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    textViews[i].setText("Order Completed");
+//                    textViews[i].setTextColor(Color.CYAN);
+//                }
+//            });
+//        }
+        //mWesternStall.child("100").removeValue();
 
         textViews[0].setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,12 +82,13 @@ public class Home extends AppCompatActivity {
                 Log.i("Alexis","Order is clicked ");
                 textViews[0].setText("Order Completed");
                 textViews[0].setTextColor(Color.CYAN);
-                Context context = getApplicationContext();
-                CharSequence text = "Order completed";
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                if (textViews[0].getVisibility()!=View.INVISIBLE){
+                    mWesternStall.child(foodCodes.get(0)).removeValue();
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition(0, 0);
+                }
             }
         });
         textViews[1].setOnClickListener(new View.OnClickListener() {
@@ -86,6 +97,11 @@ public class Home extends AppCompatActivity {
                 Log.i("Alexis","Order is clicked ");
                 textViews[1].setText("Order Completed");
                 textViews[1].setTextColor(Color.CYAN);
+                if (textViews[1].getVisibility()!=View.INVISIBLE){
+                    mWesternStall.child(foodCodes.get(1)).removeValue();
+                    finish();
+                    startActivity(getIntent());
+                }
             }
         });
         textViews[2].setOnClickListener(new View.OnClickListener() {
@@ -94,6 +110,11 @@ public class Home extends AppCompatActivity {
                 Log.i("Alexis","Order is clicked ");
                 textViews[2].setText("Order Completed");
                 textViews[2].setTextColor(Color.CYAN);
+                if (textViews[2].getVisibility()!=View.INVISIBLE){
+                    mWesternStall.child(foodCodes.get(2)).removeValue();
+                    finish();
+                    startActivity(getIntent());
+                }
             }
         });
         textViews[3].setOnClickListener(new View.OnClickListener() {
@@ -102,6 +123,11 @@ public class Home extends AppCompatActivity {
                 Log.i("Alexis","Order is clicked ");
                 textViews[3].setText("Order Completed");
                 textViews[3].setTextColor(Color.CYAN);
+                if (textViews[3].getVisibility()!=View.INVISIBLE){
+                    mWesternStall.child(foodCodes.get(3)).removeValue();
+                    finish();
+                    startActivity(getIntent());
+                }
             }
         });
         textViews[4].setOnClickListener(new View.OnClickListener() {
@@ -110,6 +136,11 @@ public class Home extends AppCompatActivity {
                 Log.i("Alexis","Order is clicked ");
                 textViews[4].setText("Order Completed");
                 textViews[4].setTextColor(Color.CYAN);
+                if (textViews[4].getVisibility()!=View.INVISIBLE){
+                    mWesternStall.child(foodCodes.get(4)).removeValue();
+                    finish();
+                    startActivity(getIntent());
+                }
             }
         });
         addmenuitembutton.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +193,7 @@ public class Home extends AppCompatActivity {
                 int i=0;
                 for (HashMap.Entry<String,String> eachOrder : viewTexts.entrySet()){
                     textViews[i].setText(eachOrder.getValue());
+                    foodCodes.add(eachOrder.getKey());
                     i++;
                 }
 

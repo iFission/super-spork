@@ -63,8 +63,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vendorwrecycler/util/Home.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="154" column="155" lean-forward="true" selection-start-line="154" selection-start-column="155" selection-end-line="154" selection-end-column="155" />
+            <state relative-caret-position="173">
+              <caret line="85" column="72" lean-forward="true" selection-start-line="85" selection-start-column="72" selection-end-line="85" selection-end-column="72" />
+              <folding>
+                <element signature="e#2903#3290#0" expanded="true" />
+                <element signature="e#3289#3290#0" expanded="true" />
+                <marker date="1575210374806" expanded="true" signature="2506:2861" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -238,7 +243,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_3a_API_29" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-11-30T13:49:13.092Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-12-01T14:24:29.344Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -347,8 +352,8 @@
       <window_info anchor="bottom" id="Run" order="0" />
       <window_info anchor="bottom" id="Logcat" order="1" weight="0.3293348" />
       <window_info anchor="bottom" id="TODO" order="2" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3293348" />
-      <window_info anchor="bottom" id="Terminal" order="4" weight="0.3293348" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3293348" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="4" visible="true" weight="0.3293348" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.3293348" />
@@ -360,18 +365,6 @@
       <window_info anchor="right" id="Preview" order="4" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
     </layout>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/vendorwrecycler/util/Home.java</url>
-          <line>152</line>
-          <properties />
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
@@ -523,8 +516,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/vendorwrecycler/util/Home.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="154" column="155" lean-forward="true" selection-start-line="154" selection-start-column="155" selection-end-line="154" selection-end-column="155" />
+        <state relative-caret-position="173">
+          <caret line="85" column="72" lean-forward="true" selection-start-line="85" selection-start-column="72" selection-end-line="85" selection-end-column="72" />
+          <folding>
+            <element signature="e#2903#3290#0" expanded="true" />
+            <element signature="e#3289#3290#0" expanded="true" />
+            <marker date="1575210374806" expanded="true" signature="2506:2861" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
