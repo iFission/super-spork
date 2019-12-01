@@ -25,18 +25,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class Home extends AppCompatActivity {
-    TextView textView1;
-    TextView textView2;
-    TextView textView3;
-    TextView textView4;
-    TextView textView5;
+//    TextView textView1;
+//    TextView textView2;
+//    TextView textView3;
+//    TextView textView4;
+//    TextView textView5;
     Button addmenuitembutton;
-    HashMap<String ,String> todayMenu = new HashMap<>();
+    HashMap<String ,String> todayMenu = new HashMap<>();                //FoodCode : FoodMenu
     ArrayList<OrderDetails> currentOrders = new ArrayList<>();
-
+    HashMap<String,String> viewTexts = new HashMap<>();                 //FoodCode : (FoodName + FoodCode)
+    TextView[] textViews = new TextView[5];
 
     DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
     DatabaseReference mfoodRef = mRootRef.child("Menu");
@@ -49,23 +51,27 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.home);
         // Use findViewById to get references to the widgets in the layout
 
-        textView1= findViewById(R.id.textview1);
-        textView2=findViewById(R.id.textview2);
-        textView3= findViewById(R.id.textview3);
-        textView4=findViewById(R.id.textview4);
-        textView5=findViewById(R.id.textview5);
+        for(int i = 0; i < 5; i++) {
+            textViews[i] = new TextView(this);
+        }
+
+        textViews[0]= findViewById(R.id.textview1);
+        textViews[1]=findViewById(R.id.textview2);
+        textViews[2]= findViewById(R.id.textview3);
+        textViews[3]=findViewById(R.id.textview4);
+        textViews[4]=findViewById(R.id.textview5);
         addmenuitembutton= findViewById(R.id.addmenuitembutton);
 
 
 
         //textView1.setText("fklaj");
 
-        textView1.setOnClickListener(new View.OnClickListener() {
+        textViews[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Alexis","Order is clicked ");
-                textView1.setText("Order Completed");
-                textView1.setTextColor(Color.CYAN);
+                textViews[0].setText("Order Completed");
+                textViews[0].setTextColor(Color.CYAN);
                 Context context = getApplicationContext();
                 CharSequence text = "Order completed";
                 int duration = Toast.LENGTH_SHORT;
@@ -74,36 +80,36 @@ public class Home extends AppCompatActivity {
                 toast.show();
             }
         });
-        textView2.setOnClickListener(new View.OnClickListener() {
+        textViews[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Alexis","Order is clicked ");
-                textView2.setText("Order Completed");
-                textView2.setTextColor(Color.CYAN);
+                textViews[1].setText("Order Completed");
+                textViews[1].setTextColor(Color.CYAN);
             }
         });
-        textView3.setOnClickListener(new View.OnClickListener() {
+        textViews[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Alexis","Order is clicked ");
-                textView3.setText("Order Completed");
-                textView3.setTextColor(Color.CYAN);
+                textViews[2].setText("Order Completed");
+                textViews[2].setTextColor(Color.CYAN);
             }
         });
-        textView4.setOnClickListener(new View.OnClickListener() {
+        textViews[3].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Alexis","Order is clicked ");
-                textView4.setText("Order Completed");
-                textView4.setTextColor(Color.CYAN);
+                textViews[3].setText("Order Completed");
+                textViews[3].setTextColor(Color.CYAN);
             }
         });
-        textView5.setOnClickListener(new View.OnClickListener() {
+        textViews[4].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Alexis","Order is clicked ");
-                textView5.setText("Order Completed");
-                textView5.setTextColor(Color.CYAN);
+                textViews[4].setText("Order Completed");
+                textViews[4].setTextColor(Color.CYAN);
             }
         });
         addmenuitembutton.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +133,7 @@ public class Home extends AppCompatActivity {
                     Menu tempMenu = data.getValue(Menu.class);
                     todayMenu.put(tempMenu.getFoodCode(),tempMenu.getFoodName());
                 }
-
+                //allFoodCodes = todayMenu.values();
             }
 
             // In case we run into any errors
@@ -144,8 +150,26 @@ public class Home extends AppCompatActivity {
                 for (DataSnapshot data:databaseOrders){
                     currentOrders.add(data.getValue(OrderDetails.class));
                 }
-                //for (OrderDetails)
-                //textView1.setText("Order Completed");
+
+                //Preparing strings for textView.setText()
+                for (OrderDetails order:currentOrders){
+                    if (todayMenu.containsKey(order.getFoodCode())){
+                        viewTexts.put(Integer.toString(order.getOrderCode()),todayMenu.get(order.getFoodCode())+". Order Number is "+order.getOrderCode());
+                    }
+                }
+
+                //Applying string for textView.setText()
+                int i=0;
+                for (HashMap.Entry<String,String> eachOrder : viewTexts.entrySet()){
+                    textViews[i].setText(eachOrder.getValue());
+                    i++;
+                }
+
+                //Hide Text Views if insufficient orders.
+                while (i<5){
+                    textViews[i].setVisibility(View.INVISIBLE);
+                    i++;
+                }
             }
 
             // In case we run into any errors
