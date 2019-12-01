@@ -51,10 +51,14 @@ public class MainActivity extends AppCompatActivity {
     TextView ChickenChopTextView;
     TextView FriesTextView;
     TextView NuggetsTextView;
+    TextView SteakTextView;
+    TextView SpaghettiTextView;
 
     Button ChickenChopPrice;
     Button FriesPrice;
     Button NuggetsPrice;
+    Button SteakButton;
+    Button SpaghettiButton;
 
     DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
     //     Creates a location of menu underneath the roots, which can receive a value
@@ -71,10 +75,14 @@ public class MainActivity extends AppCompatActivity {
         ChickenChopTextView = (TextView) findViewById(R.id.ChickenChopTextView);
         FriesTextView = (TextView) findViewById(R.id.FriesTextView);
         NuggetsTextView = (TextView) findViewById(R.id.NuggetsTextView);
+        SteakTextView = findViewById(R.id.SteakTextView);
+        SpaghettiTextView = findViewById(R.id.spaghettiTextView);
 
         ChickenChopPrice = (Button) findViewById(R.id.ChickenChopButton);
         FriesPrice = (Button) findViewById(R.id.FriesButton);
         NuggetsPrice = (Button) findViewById(R.id.NuggetsButton);
+        SteakButton = findViewById(R.id.SteakButton);
+        SpaghettiButton = findViewById(R.id.spaghettiButton);
 
         Button cart = findViewById(R.id.Cart);
         cart.setOnClickListener(new View.OnClickListener() {
@@ -95,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button ChickenChopButton = findViewById(R.id.ChickenChopButton);
-        ChickenChopButton.setOnClickListener(new View.OnClickListener() {
+        //final Button ChickenChopButton = findViewById(R.id.ChickenChopButton);
+        ChickenChopPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView ChickenChopTextView = findViewById(R.id.ChickenChopTextView);
@@ -108,8 +116,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button FriesButton = findViewById(R.id.FriesButton);
-        FriesButton.setOnClickListener(new View.OnClickListener() {
+        //final Button FriesButton = findViewById(R.id.FriesButton);
+        FriesPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView FriesTextView = findViewById(R.id.FriesTextView);
@@ -119,13 +127,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button NuggetsButton = findViewById(R.id.NuggetsButton);
-        NuggetsButton.setOnClickListener(new View.OnClickListener() {
+        //final Button NuggetsButton = findViewById(R.id.NuggetsButton);
+        NuggetsPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView NuggetsTextView = findViewById(R.id.NuggetsTextView);
                 order3 = NuggetsTextView.getText().toString();
                 price3 = NuggetsPrice.getText().toString();
+
+            }
+        });
+
+        SteakButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TextView NuggetsTextView = findViewById(R.id.NuggetsTextView);
+                order4 = SteakTextView.getText().toString();
+                price4 = SteakButton.getText().toString();
+
+            }
+        });
+
+        SpaghettiButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TextView NuggetsTextView = findViewById(R.id.NuggetsTextView);
+                order5 = SpaghettiTextView.getText().toString();
+                price5 = SpaghettiButton.getText().toString();
 
             }
         });
@@ -195,11 +223,15 @@ public class MainActivity extends AppCompatActivity {
 
                 DataSnapshot foodmenu4 = dataSnapshot.child("Menu3");
                 Menu text4 = foodmenu4.getValue(Menu.class);
+                SteakTextView.setText(text4.getFoodName());
+                SteakButton.setText(Double.toString(text4.getFoodPrice()));
                 order4 = text4.getFoodName();
                 price4 = String.valueOf(text4.getFoodPrice());
 
                 DataSnapshot foodmenu5 = dataSnapshot.child("Menu4");
                 Menu text5 = foodmenu5.getValue(Menu.class);
+                SpaghettiTextView.setText(text5.getFoodName());
+                SpaghettiButton.setText(Double.toString(text5.getFoodPrice()));
                 order5 = text5.getFoodName();
                 price5 = String.valueOf(text5.getFoodPrice());
 
