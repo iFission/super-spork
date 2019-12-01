@@ -79,10 +79,10 @@ public class Home extends AppCompatActivity {
         textViews[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Alexis","Order is clicked ");
                 textViews[0].setText("Order Completed");
                 textViews[0].setTextColor(Color.CYAN);
                 if (textViews[0].getVisibility()!=View.INVISIBLE){
+                    mcustomerRef.child(foodCodes.get(0)).child("orderStatus").setValue(true);
                     mWesternStall.child(foodCodes.get(0)).removeValue();
                     finish();
                     overridePendingTransition(0, 0);
@@ -94,10 +94,10 @@ public class Home extends AppCompatActivity {
         textViews[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Alexis","Order is clicked ");
                 textViews[1].setText("Order Completed");
                 textViews[1].setTextColor(Color.CYAN);
                 if (textViews[1].getVisibility()!=View.INVISIBLE){
+                    mcustomerRef.child(foodCodes.get(1)).child("orderStatus").setValue(true);
                     mWesternStall.child(foodCodes.get(1)).removeValue();
                     finish();
                     startActivity(getIntent());
@@ -107,10 +107,10 @@ public class Home extends AppCompatActivity {
         textViews[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Alexis","Order is clicked ");
                 textViews[2].setText("Order Completed");
                 textViews[2].setTextColor(Color.CYAN);
                 if (textViews[2].getVisibility()!=View.INVISIBLE){
+                    mcustomerRef.child(foodCodes.get(2)).child("orderStatus").setValue(true);
                     mWesternStall.child(foodCodes.get(2)).removeValue();
                     finish();
                     startActivity(getIntent());
@@ -120,10 +120,10 @@ public class Home extends AppCompatActivity {
         textViews[3].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Alexis","Order is clicked ");
                 textViews[3].setText("Order Completed");
                 textViews[3].setTextColor(Color.CYAN);
                 if (textViews[3].getVisibility()!=View.INVISIBLE){
+                    mcustomerRef.child(foodCodes.get(3)).child("orderStatus").setValue(true);
                     mWesternStall.child(foodCodes.get(3)).removeValue();
                     finish();
                     startActivity(getIntent());
@@ -133,10 +133,10 @@ public class Home extends AppCompatActivity {
         textViews[4].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Alexis","Order is clicked ");
                 textViews[4].setText("Order Completed");
                 textViews[4].setTextColor(Color.CYAN);
                 if (textViews[4].getVisibility()!=View.INVISIBLE){
+                    mcustomerRef.child(foodCodes.get(4)).child("orderStatus").setValue(true);
                     mWesternStall.child(foodCodes.get(4)).removeValue();
                     finish();
                     startActivity(getIntent());
@@ -202,6 +202,7 @@ public class Home extends AppCompatActivity {
                     textViews[i].setVisibility(View.INVISIBLE);
                     i++;
                 }
+
             }
 
             // In case we run into any errors
