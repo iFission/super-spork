@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/alegreya_sc</item>
+        <item>@font/alfa_slab_one</item>
+        <item>@font/basic</item>
+        <item>@font/convergence</item>
+        <item>@font/istok_web</item>
+        <item>@font/martel_sans_bold</item>
+        <item>@font/spicy_rice</item>
+        <item>@font/ubuntu_mono</item>
+        <item>@font/viga</item>
+    </array>
+</resources>

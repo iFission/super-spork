@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import com.example.vendorwrecycler.ListActivity;
 import com.example.vendorwrecycler.Menu;
 import com.example.vendorwrecycler.OrderDetails;
 import com.example.vendorwrecycler.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +36,7 @@ public class Home extends AppCompatActivity {
 //    TextView textView3;
 //    TextView textView4;
 //    TextView textView5;
-    Button addmenuitembutton;
+    FloatingActionButton addmenuitembutton;
     HashMap<String ,String> todayMenu = new HashMap<>();                //FoodCode : FoodMenu
     ArrayList<OrderDetails> currentOrders = new ArrayList<>();
     HashMap<String,String> viewTexts = new HashMap<>();                 //OrderCode : (FoodName + FoodCode)

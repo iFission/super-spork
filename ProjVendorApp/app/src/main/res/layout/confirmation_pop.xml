@@ -19,24 +19,25 @@
                 android:padding="17sp"
                 android:text="@string/sure_text"
                 android:textStyle="bold" />
+
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/conf_no_button"
-                android:text="@string/no_text"
-                android:background="@color/colorAccent"
-                android:textColor="@android:color/white"
-                android:layout_marginTop="40dp"/>
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/conf_yes_button"
-                android:text="@string/yes_textt"
-                android:background="@color/colorAccent"
-                android:textColor="@android:color/white"
                 android:layout_marginTop="40dp"
+                android:background="#daa592"
+                android:text="@string/no_text"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/conf_yes_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                />
+                android:layout_marginTop="40dp"
+                android:background="#f0e3c4"
+                android:text="@string/yes_textt"
+                android:textColor="@android:color/white" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

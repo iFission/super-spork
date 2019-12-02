@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="5dp"
     android:layout_width="match_parent"
@@ -8,80 +9,99 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/cardview">
+        android:id="@+id/cardview"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="20dp"
+
+
+        >
+
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+
+            android:background="#f6cd90"
             android:padding="15dp">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/item_name"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/app_name"/>
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/cambay"
+                android:text="@string/app_name"
+                android:textColor="#10316b"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/item_quantity"
-                android:textSize="18sp"
-                android:textStyle="italic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/item_name"
+                android:fontFamily="@font/ubuntu_mono"
                 android:paddingTop="4dp"
                 android:text="@string/app_name"
-                />
+                android:textColor="#2b2b28"
+                android:textSize="18sp" />
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/item_price"
-                android:textSize="18sp"
-                android:textStyle="italic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/item_quantity"
+                android:fontFamily="@font/ubuntu_mono"
                 android:paddingTop="4dp"
                 android:text="@string/app_name"
-                />
+                android:textColor="#2b2b28"
+                android:textSize="18sp" />
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/item_description"
-                android:textSize="18sp"
-                android:textStyle="italic"
-                android:layout_below="@+id/item_price"
-                android:paddingTop="4dp"
-                android:text="@string/app_name"
-                />
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/item_date"
-                android:textSize="18sp"
-                android:textStyle="italic"
-                android:layout_below="@+id/item_description"
+                android:layout_below="@+id/item_price"
+                android:fontFamily="@font/ubuntu_mono"
                 android:paddingTop="4dp"
                 android:text="@string/app_name"
-                />
+                android:textColor="#2b2b28"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/item_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_description"
+                android:fontFamily="@font/ubuntu_mono"
+                android:paddingTop="4dp"
+                android:text="@string/app_name"
+                android:textColor="#2b2b28"
+                android:textSize="18sp" />
 
             <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/item_date"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="15dp"
-                android:layout_alignBottom="@+id/item_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_marginTop="15dp">
+
                 <Button
                     android:id="@+id/editButton"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginRight="15dp"
-                    android:background="@android:drawable/ic_menu_edit"/>
+                    android:background="@android:drawable/ic_menu_edit" />
+
                 <Button
                     android:id="@+id/deleteButton"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginRight="15dp"
-                    android:background="@android:drawable/ic_menu_delete"/>
+                    android:background="@android:drawable/ic_menu_delete" />
 
             </TableRow>
 
