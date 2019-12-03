@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -75,6 +76,7 @@ public class ListActivity extends AppCompatActivity {
             //So this will run when the .setValue function runs in the button onClickListener classes
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                tempitemlist.clear();
                 Iterable<DataSnapshot> databaseMenu = dataSnapshot.getChildren();
                 for (DataSnapshot data:databaseMenu){
                     Menu tempMenu = data.getValue(Menu.class);
@@ -168,19 +170,21 @@ public class ListActivity extends AppCompatActivity {
         Item item= new Item();
 
         String newItem= foodItem.getText().toString().trim();
-        int newPrice= Integer.parseInt(price.getText().toString().trim());
+        double newPrice= Double.parseDouble(price.getText().toString().trim());
         //int newQuantity= Integer.parseInt(itemQuantity.getText().toString().trim());
-        String newDescription = description.getText().toString().trim();
+        String newDescription = itemQuantity.getText().toString().trim();
 
         item.setItemName(newItem);
         item.setDescription(newDescription);
-        item.setPrice(newPrice);
+        item.setPrice_double(newPrice);
         item.setItemQuantity(0);
 
-        //itemList.add(item);
         databaseHandler.addItem(item);
         Snackbar.make(view,"Item Saved", Snackbar.LENGTH_SHORT).show();
 
+        //Adding to Firebase
+        String childName = "Menu"+newItem;
+        mfoodRef.child(childName).setValue(new Menu(newItem,newPrice,newDescription));
 
         new Handler().postDelayed(new Runnable() {
             @Override
