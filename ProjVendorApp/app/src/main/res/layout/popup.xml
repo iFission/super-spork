@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/foodItem"
                 android:fontFamily="@font/basic"
-                android:hint="@string/hint_qty"
+                android:hint="Food Code"
                 android:inputType="number" />
 
             <EditText

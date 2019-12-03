@@ -51,11 +51,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         Item item = itemList.get(position);//object item
 
-        viewHolder.itemName.setText(MessageFormat.format("Item: {0}", item.getItemName()));
-        viewHolder.itemprice.setText(MessageFormat.format("Price:{0}", Integer.toString(item.getPrice())));
-        viewHolder.quantity.setText(MessageFormat.format("Quantity:{0}", Integer.toString(item.getItemQuantity())));
-        viewHolder.description.setText(MessageFormat.format("Description: {0}", item.getDescription()));
-        viewHolder.dateAdded.setText("Date added: "+item.getDateItemadded());
+        viewHolder.itemName.setText(MessageFormat.format("Food Name: {0}", item.getItemName()));
+        viewHolder.itemprice.setText(MessageFormat.format("Price:{0}", Double.toString(item.getPrice_double())));
+        viewHolder.quantity.setText(MessageFormat.format("Food Code:{0}", item.getDescription()));
+        viewHolder.description.setVisibility(View.INVISIBLE);
+        viewHolder.dateAdded.setVisibility(View.INVISIBLE);
+        //viewHolder.description.setText(MessageFormat.format("Description: {0}", item.getDescription()));
+        //viewHolder.dateAdded.setText("Date added: "+item.getDateItemadded());
 
 
 

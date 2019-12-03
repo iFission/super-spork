@@ -6,6 +6,7 @@ public class Item {
     private String description;
     private int itemQuantity;
     private int price;
+    private double price_double;
     private String dateItemadded;
 
     public Item(){
@@ -27,6 +28,14 @@ public class Item {
         this.itemQuantity = itemQuantity;
         this.price = price;
         this.dateItemadded = dateItemadded;
+    }
+
+    public Item(String itemName, String foodCode, double price_double){
+        this.itemName=itemName;
+        this.description=foodCode;
+        this.price_double=price_double;
+        this.itemQuantity=1;
+        this.dateItemadded="Now";
     }
 
     public int getId() {
@@ -75,5 +84,13 @@ public class Item {
 
     public void setDateItemadded(String dateItemadded) {
         this.dateItemadded = dateItemadded;
+    }
+
+    public double getPrice_double() {
+        return price_double;
+    }
+
+    public void setPrice_double(double price_double) {
+        this.price_double = price_double;
     }
 }

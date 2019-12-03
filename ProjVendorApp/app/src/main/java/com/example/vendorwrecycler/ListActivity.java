@@ -1,5 +1,6 @@
 package com.example.vendorwrecycler;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,12 +23,18 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 import com.example.vendorwrecycler.util.Home;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class ListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     private List<Item> itemList;
+    private List<Item> tempitemlist;
     private DataBaseHandler databaseHandler;
     private FloatingActionButton fab;
     private AlertDialog.Builder builder;
@@ -39,7 +46,10 @@ public class ListActivity extends AppCompatActivity {
     private EditText description;
     private Button homeButton;
 
-
+    DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
+    DatabaseReference mfoodRef = mRootRef.child("Menu");
+    DatabaseReference mcustomerRef = mRootRef.child("CustomerList").child("Customer1");
+    DatabaseReference mWesternStall = mRootRef.child("WesternOrderQueue");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +67,41 @@ public class ListActivity extends AppCompatActivity {
 
 
         itemList= new ArrayList<>();
+        tempitemlist = new ArrayList<>();
+
+        //Get items from Firebase
+        mfoodRef.addValueEventListener(new ValueEventListener() {
+            //Will run everytime there is an update to the condition value in the database
+            //So this will run when the .setValue function runs in the button onClickListener classes
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> databaseMenu = dataSnapshot.getChildren();
+                for (DataSnapshot data:databaseMenu){
+                    Menu tempMenu = data.getValue(Menu.class);
+                    Item tempItem = new Item(tempMenu.getFoodName(),tempMenu.getFoodCode(),tempMenu.getFoodPrice());
+                    //itemList.add(tempItem);
+                    //databaseHandler.addItem(tempItem);
+                    tempitemlist.add(tempItem);
+                }
+            }
+
+            // In case we run into any errors
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         //Get items from db
+         //itemList = databaseHandler.getAllItems();
+
+         for(Item item : tempitemlist){
+             Log.d("ListActivity", "onCreate: "+ item.getItemName());
+             databaseHandler.addItem(item);
+        }
          itemList = databaseHandler.getAllItems();
 
-         for(Item item : itemList){
-             Log.d("ListActivity", "onCreate: "+ item.getItemName());
-
-
-        }
          recyclerViewAdapter= new RecyclerViewAdapter(this,itemList);
          recyclerView.setAdapter(recyclerViewAdapter);
          recyclerViewAdapter.notifyDataSetChanged();
@@ -100,7 +136,7 @@ public class ListActivity extends AppCompatActivity {
         price = view.findViewById(R.id.price);
         description = view.findViewById(R.id.description);
         saveButton = view.findViewById(R.id.saveButton);
-
+        description.setVisibility(View.INVISIBLE);
 
 
 
@@ -115,8 +151,7 @@ public class ListActivity extends AppCompatActivity {
 
                 if (!foodItem.getText().toString().isEmpty()
                         && !price.getText().toString().isEmpty()
-                        && !itemQuantity.getText().toString().isEmpty()
-                        && !description.getText().toString().isEmpty()) {
+                        && !itemQuantity.getText().toString().isEmpty()) {                          //&& !description.getText().toString().isEmpty()
                     saveItem(v);
                 }else {
                     Snackbar.make(v, "Empty Fields not Allowed", Snackbar.LENGTH_SHORT)
@@ -134,14 +169,15 @@ public class ListActivity extends AppCompatActivity {
 
         String newItem= foodItem.getText().toString().trim();
         int newPrice= Integer.parseInt(price.getText().toString().trim());
-        int newQuantity= Integer.parseInt(itemQuantity.getText().toString().trim());
+        //int newQuantity= Integer.parseInt(itemQuantity.getText().toString().trim());
         String newDescription = description.getText().toString().trim();
 
         item.setItemName(newItem);
         item.setDescription(newDescription);
         item.setPrice(newPrice);
-        item.setItemQuantity(newQuantity);
+        item.setItemQuantity(0);
 
+        //itemList.add(item);
         databaseHandler.addItem(item);
         Snackbar.make(view,"Item Saved", Snackbar.LENGTH_SHORT).show();
 
