@@ -35,7 +35,6 @@ public class ListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     private List<Item> itemList;
-    private List<Item> tempitemlist;
     private DataBaseHandler databaseHandler;
     private FloatingActionButton fab;
     private AlertDialog.Builder builder;
@@ -68,7 +67,6 @@ public class ListActivity extends AppCompatActivity {
 
 
         itemList= new ArrayList<>();
-        tempitemlist = new ArrayList<>();
 
         //Get items from Firebase
         mfoodRef.addValueEventListener(new ValueEventListener() {
@@ -81,11 +79,7 @@ public class ListActivity extends AppCompatActivity {
                 for (DataSnapshot data:databaseMenu){
                     Menu tempMenu = data.getValue(Menu.class);
                     Item tempItem = new Item(tempMenu.getFoodName(),tempMenu.getFoodCode(),tempMenu.getFoodPrice());
-                    //itemList.add(tempItem);
                     databaseHandler.addItem(tempItem);
-                    //tempitemlist.add(tempItem);
-//                    finish();
-//                    startActivity(getIntent());
                 }
             }
 
@@ -97,13 +91,6 @@ public class ListActivity extends AppCompatActivity {
         });
 
 
-        //Get items from db
-         //itemList = databaseHandler.getAllItems();
-
-//         for(Item item : tempitemlist){
-//             Log.d("ListActivity", "onCreate: "+ item.getItemName());
-//             databaseHandler.addItem(item);
-//        }
          itemList = databaseHandler.getAllItems();
 
          recyclerViewAdapter= new RecyclerViewAdapter(this,itemList);

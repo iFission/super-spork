@@ -33,7 +33,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + Constants.KEY_FOOD_ITEM + " INTEGER,"
                 + Constants.KEY_PRICE + " TEXT,"
                 + Constants.KEY_QTY_NUMBER + " INTEGER,"
-                + Constants.KEY_DESCRIPTION + " TEXT,"
+                + Constants.KEY_DESCRIPTION + " ID,"
                 + Constants.KEY_DATE_NAME + " LONG);";
 
         db.execSQL(CREATE_FOOD_TABLE);
@@ -60,10 +60,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         values.put(Constants.KEY_DESCRIPTION, item.getDescription());
         values.put(Constants.KEY_DATE_NAME, java.lang.System.currentTimeMillis());//timestamp of the system
 
+//        db.insert(Constants.TABLE_NAME, null, values);
+//        Log.d("DBHandler", "added Item: ");
         //Check if the record already exists in the database
         if(!hasObject(item.getDescription())){
             //Insert the row
-            db.insert(Constants.TABLE_NAME, null, values);
+            db.insert(Constants.TABLE_NAME, null, values);              // This is not running as planned
             Log.d("DBHandler", "added Item: ");
         }
         else {
@@ -205,7 +207,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        db.close();
+        //db.close();
         return hasObject;
     }
 }
