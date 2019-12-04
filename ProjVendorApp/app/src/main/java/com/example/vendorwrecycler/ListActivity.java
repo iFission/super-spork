@@ -76,14 +76,16 @@ public class ListActivity extends AppCompatActivity {
             //So this will run when the .setValue function runs in the button onClickListener classes
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                tempitemlist.clear();
+                //tempitemlist.clear();
                 Iterable<DataSnapshot> databaseMenu = dataSnapshot.getChildren();
                 for (DataSnapshot data:databaseMenu){
                     Menu tempMenu = data.getValue(Menu.class);
                     Item tempItem = new Item(tempMenu.getFoodName(),tempMenu.getFoodCode(),tempMenu.getFoodPrice());
                     //itemList.add(tempItem);
-                    //databaseHandler.addItem(tempItem);
-                    tempitemlist.add(tempItem);
+                    databaseHandler.addItem(tempItem);
+                    //tempitemlist.add(tempItem);
+//                    finish();
+//                    startActivity(getIntent());
                 }
             }
 
@@ -98,10 +100,10 @@ public class ListActivity extends AppCompatActivity {
         //Get items from db
          //itemList = databaseHandler.getAllItems();
 
-         for(Item item : tempitemlist){
-             Log.d("ListActivity", "onCreate: "+ item.getItemName());
-             databaseHandler.addItem(item);
-        }
+//         for(Item item : tempitemlist){
+//             Log.d("ListActivity", "onCreate: "+ item.getItemName());
+//             databaseHandler.addItem(item);
+//        }
          itemList = databaseHandler.getAllItems();
 
          recyclerViewAdapter= new RecyclerViewAdapter(this,itemList);

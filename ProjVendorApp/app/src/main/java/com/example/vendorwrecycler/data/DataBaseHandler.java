@@ -55,15 +55,22 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(Constants.KEY_FOOD_ITEM, item.getItemName());
-        values.put(Constants.KEY_PRICE, item.getPrice());
+        values.put(Constants.KEY_PRICE, item.getPrice_double());
         values.put(Constants.KEY_QTY_NUMBER, item.getItemQuantity());
         values.put(Constants.KEY_DESCRIPTION, item.getDescription());
         values.put(Constants.KEY_DATE_NAME, java.lang.System.currentTimeMillis());//timestamp of the system
 
-        //Inset the row
-        db.insert(Constants.TABLE_NAME, null, values);
+        //Check if the record already exists in the database
+        if(!hasObject(item.getDescription())){
+            //Insert the row
+            db.insert(Constants.TABLE_NAME, null, values);
+            Log.d("DBHandler", "added Item: ");
+        }
+        else {
+            //Don't insert the row
+            Log.d("DBHandler", "Item exists");
 
-        Log.d("DBHandler", "added Item: ");
+        }
     }
 
     //Get an Item
@@ -87,7 +94,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         if (cursor != null) {
             item.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(Constants.KEY_ID))));
             item.setItemName(cursor.getString(cursor.getColumnIndex(Constants.KEY_FOOD_ITEM)));
-            item.setPrice(cursor.getInt(cursor.getColumnIndex(Constants.KEY_PRICE)));
+            item.setPrice_double(cursor.getDouble(cursor.getColumnIndex(Constants.KEY_PRICE)));
             item.setItemQuantity(cursor.getInt(cursor.getColumnIndex(Constants.KEY_QTY_NUMBER)));
             item.setDescription(cursor.getString(cursor.getColumnIndex(Constants.KEY_DESCRIPTION)));
 
@@ -125,7 +132,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 Item item = new Item();
                 item.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(Constants.KEY_ID))));
                 item.setItemName(cursor.getString(cursor.getColumnIndex(Constants.KEY_FOOD_ITEM)));
-                item.setPrice(cursor.getInt(cursor.getColumnIndex(Constants.KEY_PRICE)));
+                item.setPrice_double(cursor.getDouble(cursor.getColumnIndex(Constants.KEY_PRICE)));
                 item.setItemQuantity(cursor.getInt(cursor.getColumnIndex(Constants.KEY_QTY_NUMBER)));
                 item.setDescription(cursor.getString(cursor.getColumnIndex(Constants.KEY_DESCRIPTION)));
 
@@ -182,5 +189,23 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         return cursor.getCount();
 
+    }
+
+    public boolean hasObject(String foodCode) {
+        SQLiteDatabase db = getWritableDatabase();
+        String selectString = "SELECT * FROM " + Constants.TABLE_NAME + " WHERE " + Constants.KEY_DESCRIPTION + " =?";
+
+        // Add the String you are searching by here.
+        // Put it in an array to avoid an unrecognized token error
+        Cursor cursor = db.rawQuery(selectString, new String[] {foodCode});
+
+        boolean hasObject = false;
+        if(cursor.moveToFirst()){
+            hasObject = true;
+        }
+
+        cursor.close();
+        db.close();
+        return hasObject;
     }
 }
