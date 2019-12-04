@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.vendorwrecycler.Menu;
 import com.example.vendorwrecycler.data.DataBaseHandler;
 
 
@@ -19,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vendorwrecycler.R;
 import com.example.vendorwrecycler.model.Item;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -30,6 +35,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private AlertDialog.Builder builder;
     private AlertDialog dialog;
     private LayoutInflater inflater;
+
+    DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
+    DatabaseReference mfoodRef = mRootRef.child("Menu");
 
 
     public RecyclerViewAdapter(Context context, List<Item> itemList) {
@@ -162,6 +170,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private void editItem(final Item newItem) {
             //Item item = itemList.get(getAdapterPosition());
 
+            DataBaseHandler dataBaseHandler = new DataBaseHandler(context);
             builder = new AlertDialog.Builder(context);
             inflater= LayoutInflater.from(context);
             View view = inflater.inflate(R.layout.popup,null);
@@ -174,11 +183,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
             foodItem = view.findViewById(R.id.foodItem);
-            itemQuantity = view.findViewById(R.id.itemQuantity);
+            description = view.findViewById(R.id.itemQuantity);
             price = view.findViewById(R.id.price);
-            description = view.findViewById(R.id.description);
+            itemQuantity = view.findViewById(R.id.description);
             saveButton = view.findViewById(R.id.saveButton);
             title = view.findViewById(R.id.title);
+            itemQuantity.setVisibility(View.INVISIBLE);
 
             saveButton.setText(R.string.update_text);;
 
@@ -188,10 +198,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             title.setText(R.string.edit_item);
             foodItem.setText(newItem.getItemName());
-            price.setText(String.valueOf(newItem.getPrice()));
-            itemQuantity.setText(String.valueOf(newItem.getItemQuantity()));
+            price.setText(String.valueOf(newItem.getPrice_double()));
             description.setText(newItem.getDescription());
-
 
 
             saveButton.setOnClickListener(new View.OnClickListener() {
@@ -200,22 +208,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     DataBaseHandler dataBaseHandler = new DataBaseHandler(context);
                     //update items
                     newItem.setItemName(foodItem.getText().toString());
-                    newItem.setItemQuantity(Integer.parseInt(itemQuantity.getText().toString()));
-                    newItem.setPrice(Integer.parseInt(price.getText().toString()));
+                    newItem.setItemQuantity(1);
+                    newItem.setPrice_double(Double.parseDouble(price.getText().toString()));
                     newItem.setDescription(description.getText().toString());
 
                     if(!foodItem.getText().toString().isEmpty()
                     && !price.getText().toString().isEmpty()
-                    && !description.getText().toString().isEmpty()
-                    && !itemQuantity.getText().toString().isEmpty()){
+                    && !description.getText().toString().isEmpty()){
+
                         dataBaseHandler.updateItem(newItem);
-                        notifyItemChanged(getAdapterPosition(),newItem); // so user dont need to refresh to see the after edit
+                        Menu updateMenu = new Menu(newItem.getItemName(),newItem.getPrice_double(),newItem.getDescription());
+                        mfoodRef.child("Menu"+newItem.getDescription()).setValue(updateMenu);
+                        notifyItemChanged(getAdapterPosition(), newItem); // so user dont need to refresh to see the after edit
+
                     }else{
                         Snackbar.make(v,"Fields empty",Snackbar.LENGTH_SHORT).show();
                     }
                     dialog.dismiss();
-
-
                 }
             });
     }

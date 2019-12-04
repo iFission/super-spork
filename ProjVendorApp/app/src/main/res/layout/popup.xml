@@ -50,7 +50,7 @@
                 android:layout_below="@+id/itemQuantity"
                 android:fontFamily="@font/basic"
                 android:hint="@string/hint_price"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/description"

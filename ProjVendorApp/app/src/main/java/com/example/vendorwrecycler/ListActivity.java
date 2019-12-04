@@ -183,7 +183,7 @@ public class ListActivity extends AppCompatActivity {
             Snackbar.make(view,"Item Saved", Snackbar.LENGTH_SHORT).show();
 
             //Adding to Firebase
-            String childName = "Menu"+newItem;
+            String childName = "Menu"+newDescription;
             mfoodRef.child(childName).setValue(new Menu(newItem,newPrice,newDescription));
 
             new Handler().postDelayed(new Runnable() {
