@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.vendorwrecycler.data.DataBaseHandler;
 import com.example.vendorwrecycler.model.Item;
@@ -163,33 +165,41 @@ public class ListActivity extends AppCompatActivity {
         //int newQuantity= Integer.parseInt(itemQuantity.getText().toString().trim());
         String newDescription = itemQuantity.getText().toString().trim();
 
-        item.setItemName(newItem);
-        item.setDescription(newDescription);
-        item.setPrice_double(newPrice);
-        item.setItemQuantity(0);
+        if (databaseHandler.hasObject(newDescription)){
+            Context context = getApplicationContext();
+            CharSequence text = "OrderCode exists, menu not saved";
+            int duration = Toast.LENGTH_SHORT;
 
-        databaseHandler.addItem(item);
-        Snackbar.make(view,"Item Saved", Snackbar.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+        else{
+            item.setItemName(newItem);
+            item.setDescription(newDescription);
+            item.setPrice_double(newPrice);
+            item.setItemQuantity(0);
 
-        //Adding to Firebase
-        String childName = "Menu"+newItem;
-        mfoodRef.child(childName).setValue(new Menu(newItem,newPrice,newDescription));
+            databaseHandler.addItem(item);
+            Snackbar.make(view,"Item Saved", Snackbar.LENGTH_SHORT).show();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //code to be run
-                alertDialog.dismiss();
-                //Todo: move to next screen- details screen
+            //Adding to Firebase
+            String childName = "Menu"+newItem;
+            mfoodRef.child(childName).setValue(new Menu(newItem,newPrice,newDescription));
 
-                startActivity(new Intent(ListActivity.this, MainActivity.class ));
-                finish();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //code to be run
+                    alertDialog.dismiss();
+                    //Todo: move to next screen- details screen
+
+                    startActivity(new Intent(ListActivity.this, MainActivity.class ));
+                    finish();
 
 
-            }
-        },1200);
-
-
+                }
+            },1200);
+        }
 
     }
 }
