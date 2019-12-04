@@ -153,6 +153,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 @Override
                 public void onClick(View v) {
                     DataBaseHandler db = new DataBaseHandler(context);
+                    mfoodRef.child("Menu"+itemList.get(getAdapterPosition()).getDescription()).removeValue();
+
                     db.deleteItem(id);
                     itemList.remove(getAdapterPosition());
                     notifyItemRemoved(getAdapterPosition());
