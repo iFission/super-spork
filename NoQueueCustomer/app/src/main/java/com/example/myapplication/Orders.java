@@ -2,10 +2,16 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,6 +27,10 @@ import java.util.HashMap;
 
 public class Orders extends AppCompatActivity {
 
+    private static final String CHANNEL_ID = "CustomerApp";
+    private static final String CHANNEL_NAME = "CustomerApp";
+    private static final String CHANNEL_DESC = "CustomerApp Notifications";
+
     DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
     DatabaseReference mfoodRef = mRootRef.child("Menu");
     DatabaseReference mcustomerRef = mRootRef.child("CustomerList").child("Customer1");
@@ -31,6 +41,7 @@ public class Orders extends AppCompatActivity {
     ArrayList<OrderDetails> cookedOrders = new ArrayList<>();
     HashMap<String,String> cookingTexts = new HashMap<>();                 //OrderCode : (FoodName + FoodCode)
     HashMap<String,String> cookedTexts = new HashMap<>();
+    HashMap<String,String> previousCooked = new HashMap<>();
     ArrayList<String> cookingCodes = new ArrayList<>();
     ArrayList<String> cookedCodes = new ArrayList<>();
 
@@ -54,6 +65,20 @@ public class Orders extends AppCompatActivity {
         cookedViews[3] = findViewById(R.id.Order4CollectTextView);
 
          HomeButt = findViewById(R.id.backhome);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = CHANNEL_NAME;
+            String description = CHANNEL_DESC;
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+
 
         cookedViews[0].setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,6 +205,7 @@ public class Orders extends AppCompatActivity {
                     cookedViews[j].setVisibility(View.INVISIBLE);
                     j++;
                 }
+                ifDataChanged();
 
             }
 
@@ -198,5 +224,23 @@ public class Orders extends AppCompatActivity {
             }
         });
 
+    }
+    public void ifDataChanged(){
+        if(cookedTexts.size()>previousCooked.size()){
+            //Send notification
+            Log.d("Johnson","Send Not!");
+            previousCooked = (HashMap<String, String>) cookedTexts.clone();
+            displayNotification();
+        }
+        else{
+            Log.d("JOhnson","Don't send");
+        }
+    }
+
+    private void displayNotification(){
+        NotificationCompat.Builder notiBuilder = new NotificationCompat.Builder(this,CHANNEL_ID).setSmallIcon(R.drawable.add_icon).setContentTitle("Order Ready!").setContentText("Your meal is ready for collection!").setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notiManager = NotificationManagerCompat.from(this);
+        notiManager.notify(1,notiBuilder.build());
     }
 }
