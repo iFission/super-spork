@@ -13,8 +13,6 @@
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="20dp"
-
-
         >
 
         <RelativeLayout

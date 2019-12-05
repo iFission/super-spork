@@ -173,8 +173,8 @@ public class Cart extends AppCompatActivity {
             }
         });
 
-        OrderDetails trialOrder = new OrderDetails("001", 0,false);
-        mWesternStall.child("0").setValue(trialOrder);
+//        OrderDetails trialOrder = new OrderDetails("001", 0,false);
+//        mWesternStall.child("0").setValue(trialOrder);
 
         Button orderbutton = findViewById(R.id.Ordernow);
         orderbutton.setOnClickListener(new View.OnClickListener() {
