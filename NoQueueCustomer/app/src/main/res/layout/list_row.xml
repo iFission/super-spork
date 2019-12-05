@@ -28,6 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Food name"
+                android:layout_centerHorizontal="true"
                 android:textColor="#10316b"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -39,6 +40,7 @@
                 android:layout_below="@+id/item_name"
                 android:paddingTop="4dp"
                 android:text="Price"
+                android:layout_centerHorizontal="true"
                 android:textColor="#2b2b28"
                 android:textSize="18sp" />
 
@@ -50,13 +52,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="15dp">
 
-                <Button
-                    android:id="@+id/addButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@android:drawable/ic_input_add" />
 
             </TableRow>
 

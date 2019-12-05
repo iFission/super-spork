@@ -19,11 +19,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class Cart extends AppCompatActivity {
-    int i1;
-    int i2;
-    int i3;
-    int i4;
-    int i5;
+    int i1=0;
+    int i2=0;
+    int i3=0;
+    int i4=0;
+    int i5=0;
     String price1;
     String price2;
     String price3;
@@ -53,6 +53,8 @@ public class Cart extends AppCompatActivity {
         String order5  = mainToCart.getStringExtra(MainActivity.ORDER5);
         price5 = mainToCart.getStringExtra(MainActivity.PRICE5);
 
+        String[] prices = {price1,price2,price3,price4,price5};
+
         TextView Order1 = findViewById(R.id.editTextOrder1);
         TextView Order2 = findViewById(R.id.editTextOrder2);
         TextView Order3 = findViewById(R.id.editTextOrder3);
@@ -75,9 +77,35 @@ public class Cart extends AppCompatActivity {
         Price3.setText(price3);
         Price4.setText(price4);
         Price5.setText(price5);
-        ImageButton imageButton2 = findViewById(R.id.imageButton2);
+
+        ImageButton imageButton1 = findViewById(R.id.imageButton1);
+        ImageButton imageButton6 = findViewById(R.id.imageButton6);
         final TextView textView1 = findViewById(R.id.quantityTextView1);
-        imageButton2.setOnClickListener(new View.OnClickListener() {
+        ImageButton imageButton2 = findViewById(R.id.imageButton2);
+        ImageButton imageButton7 = findViewById(R.id.imageButton7);
+        final TextView textView2 = findViewById(R.id.quantityTextView2);
+        ImageButton imageButton3 = findViewById(R.id.imageButton3);
+        ImageButton imageButton8 = findViewById(R.id.imageButton8);
+        final TextView textView3 = findViewById(R.id.quantityTextView3);
+        ImageButton imageButton4 = findViewById(R.id.imageButton4);
+        ImageButton imageButton9 = findViewById(R.id.imageButton9);
+        final TextView textView4 = findViewById(R.id.quantityTextView4);
+        ImageButton imageButton5 = findViewById(R.id.imageButton5);
+        ImageButton imageButton10 = findViewById(R.id.imageButton10);
+        final TextView textView5 = findViewById(R.id.quantityTextView5);
+
+        ImageButton[] imageButtons = {imageButton1,imageButton2,imageButton3,imageButton4,imageButton5,imageButton6,imageButton7,imageButton8,imageButton9,imageButton10};
+        TextView[] quantityTVs = {textView1,textView2,textView3,textView4,textView5};
+
+        for (int z=0; z<5; z++){
+            if(prices[z]==null){
+                imageButtons[z].setVisibility(View.INVISIBLE);
+                imageButtons[z+5].setVisibility(View.INVISIBLE);
+                quantityTVs[z].setVisibility(View.INVISIBLE);
+            }
+        }
+
+        imageButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 i1+=1;
@@ -96,8 +124,7 @@ public class Cart extends AppCompatActivity {
             }
         });
 
-        ImageButton imageButton3 = findViewById(R.id.imageButton3);
-        imageButton3.setOnClickListener(new View.OnClickListener() {
+        imageButton6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(i1>0){i1 -=1;}
@@ -109,6 +136,7 @@ public class Cart extends AppCompatActivity {
                 if (total>0) {
                     total -= new Double(price1);
                 }
+                else{total=0;}
                 TextView totalTextView = findViewById(R.id.totalTextView);
                 totalTextView.setText(Double.toString(total));
 
@@ -116,10 +144,7 @@ public class Cart extends AppCompatActivity {
             }
         });
 
-
-        ImageButton imageButton4 = findViewById(R.id.imageButton4);
-        final TextView textView2 = findViewById(R.id.quantityTextView2);
-        imageButton4.setOnClickListener(new View.OnClickListener() {
+        imageButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 i2+=1;
@@ -138,8 +163,7 @@ public class Cart extends AppCompatActivity {
             }
         });
 
-        ImageButton imageButton5 = findViewById(R.id.imageButton5);
-        imageButton5.setOnClickListener(new View.OnClickListener() {
+        imageButton7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(i2>0){i2 -=1;}
@@ -150,6 +174,7 @@ public class Cart extends AppCompatActivity {
                 if (total>0) {
                     total -= new Double(price2);
                 }
+                else{total=0;}
                 Price2.setText(Double.toString(individualPrice));
                 TextView totalTextView = findViewById(R.id.totalTextView);
                 totalTextView.setText(Double.toString(total));
@@ -157,30 +182,25 @@ public class Cart extends AppCompatActivity {
             }
         });
 
-
-        ImageButton imageButton10 = findViewById(R.id.imageButton10);
-        final TextView textView3 = findViewById(R.id.quantityTextView3);
-        imageButton4.setOnClickListener(new View.OnClickListener() {
+        imageButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i3+=1;
+                i3 += 1;
                 textView3.setText("" + i3);
 
-                double individualPrice = CalculatePrice.calculatePrice(price3,""+ i3);
+                double individualPrice = CalculatePrice.calculatePrice(price3, "" + i3);
                 TextView Price3 = findViewById(R.id.Price3);
-                if (total>=0) {
+                if (total >= 0) {
                     total += new Double(price3);
                 }
                 Price3.setText(Double.toString(individualPrice));
                 TextView totalTextView = findViewById(R.id.totalTextView);
                 totalTextView.setText(Double.toString(total));
 
-
             }
         });
 
-        ImageButton imageButton6 = findViewById(R.id.imageButton6);
-        imageButton6.setOnClickListener(new View.OnClickListener() {
+        imageButton8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(i3>0){i3 -=1;}
@@ -191,6 +211,7 @@ public class Cart extends AppCompatActivity {
                 if (total>0) {
                     total -= new Double(price3);
                 }
+                else{total=0;}
                 Price3.setText(Double.toString(individualPrice));
                 TextView totalTextView = findViewById(R.id.totalTextView);
                 totalTextView.setText(Double.toString(total));
@@ -198,11 +219,7 @@ public class Cart extends AppCompatActivity {
             }
         });
 
-
-
-        ImageButton imageButton11 = findViewById(R.id.imageButton11);
-        final TextView textView4 = findViewById(R.id.quantityTextView4);
-        imageButton11.setOnClickListener(new View.OnClickListener() {
+        imageButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 i4+=1;
@@ -221,8 +238,7 @@ public class Cart extends AppCompatActivity {
             }
         });
 
-        ImageButton imageButton7 = findViewById(R.id.imageButton7);
-        imageButton7.setOnClickListener(new View.OnClickListener() {
+        imageButton9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(i4>0){i4 -=1;}
@@ -232,7 +248,7 @@ public class Cart extends AppCompatActivity {
                 TextView Price4 = findViewById(R.id.Price4);
                 if (total>0) {
                     total -= new Double(price4);
-                }
+                }else{total=0;}
                 Price4.setText(Double.toString(individualPrice));
                 TextView totalTextView = findViewById(R.id.totalTextView);
                 totalTextView.setText(Double.toString(total));
@@ -240,11 +256,7 @@ public class Cart extends AppCompatActivity {
             }
         });
 
-
-
-        ImageButton imageButton12 = findViewById(R.id.imageButton12);
-        final TextView textView5 = findViewById(R.id.quantityTextView5);
-        imageButton12.setOnClickListener(new View.OnClickListener() {
+        imageButton5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 i5+=1;
@@ -263,8 +275,7 @@ public class Cart extends AppCompatActivity {
             }
         });
 
-        ImageButton imageButton9 = findViewById(R.id.imageButton9);
-        imageButton9.setOnClickListener(new View.OnClickListener() {
+        imageButton10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(i5>0){i5 -=1;}
@@ -274,23 +285,13 @@ public class Cart extends AppCompatActivity {
                 TextView Price5 = findViewById(R.id.Price5);
                 if (total>0) {
                     total -= new Double(price5);
-                }
+                }else{total=0;}
                 Price5.setText(Double.toString(individualPrice));
                 TextView totalTextView = findViewById(R.id.totalTextView);
                 totalTextView.setText(Double.toString(total));
 
             }
         });
-
-
-
-        //Hey Tiff, insert the code for the other image buttons here :D
-        //For the quantity counter, keep using variable names like i1, i2 , i3, i4, i5.
-
-
-
-
-
 
         Button orderbutton = findViewById(R.id.Ordernow);
         orderbutton.setOnClickListener(new View.OnClickListener() {
@@ -309,7 +310,16 @@ public class Cart extends AppCompatActivity {
                     CustomerOrder.add(new OrderDetails("001",i,false));
                 }
                 for (int j=0; j<i2; j++){
-                    CustomerOrder.add(new OrderDetails("002",10+j,false));
+                    CustomerOrder.add(new OrderDetails("002",5+j,false));
+                }
+                for (int i=0; i<i3; i++){
+                    CustomerOrder.add(new OrderDetails("002",10+i,false));
+                }
+                for (int j=0; j<i4; j++){
+                    CustomerOrder.add(new OrderDetails("002",15+j,false));
+                }
+                for (int j=0; j<i5; j++){
+                    CustomerOrder.add(new OrderDetails("002",20+j,false));
                 }
 
                 //Responsible for writing the order to Firebase Western Order Queue tree

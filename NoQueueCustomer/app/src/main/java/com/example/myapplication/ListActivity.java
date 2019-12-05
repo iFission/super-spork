@@ -67,7 +67,7 @@ public class ListActivity extends AppCompatActivity {
     private EditText itemQuantity;
     private EditText price;
     private EditText description;
-    private Button homeButton;
+    private Button ordersButton;
 
     DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
     DatabaseReference mfoodRef = mRootRef.child("Menu");
@@ -80,7 +80,7 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_recycler);
         recyclerView= findViewById(R.id.recyclerview);
         fab= findViewById(R.id.fab);
-        homeButton= findViewById(R.id.homeButton);
+        ordersButton= findViewById(R.id.ordersButton);
 
 
 
@@ -148,13 +148,13 @@ public class ListActivity extends AppCompatActivity {
 
 
         });
-//        homeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(v.getContext(),Home.class);
-//                startActivityForResult(intent,0);
-//            }
-//        });
+        ordersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(),Orders.class);
+                startActivityForResult(intent,0);
+            }
+        });
     }
 
     private void createPopDialog() {

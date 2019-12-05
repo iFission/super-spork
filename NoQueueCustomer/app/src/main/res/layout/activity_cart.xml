@@ -11,21 +11,24 @@
         android:id="@+id/Ordernow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Order Now!"
         android:layout_below="@+id/totalTextTextView"
-        android:layout_marginTop="50px"
-        android:layout_marginRight="140dp"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="76dp"
+        android:layout_marginRight="162dp"
+        android:background="#badfdb"
+        android:text="Order Now!" />
 
     <Button
         android:id="@+id/MyOrders"
+        android:background="#badfdb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Orders"
-        android:layout_below="@+id/Ordernow"
-        android:layout_marginTop="50px"
-        android:layout_marginRight="140dp"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="7dp"
+        android:text="My Orders" />
 
     <TextView
         android:id="@+id/MyCartTextView"
@@ -87,14 +90,14 @@
 
     <TextView
         android:id="@+id/quantityTextView1"
-        android:text="1"
+        android:text="0"
         android:layout_below="@+id/MyCartTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingRight="10dp"
-        android:layout_toLeftOf="@+id/imageButton2"/>
+        android:layout_toLeftOf="@+id/imageButton6"/>
 
     <TextView
         android:id="@+id/editTextOrder3"
@@ -168,10 +171,10 @@
 
     <TextView
         android:id="@+id/quantityTextView2"
-        android:text="1"
+        android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/imageButton4"
+        android:layout_toLeftOf="@+id/imageButton7"
         android:layout_below="@id/quantityTextView1"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
@@ -179,7 +182,7 @@
 
     <TextView
         android:id="@+id/quantityTextView3"
-        android:text="1"
+        android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/imageButton10"
@@ -189,7 +192,7 @@
         android:paddingRight="10dp"/>
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/imageButton6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -198,10 +201,10 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        app:srcCompat="@android:drawable/arrow_up_float" />
+        app:srcCompat="@android:drawable/arrow_down_float" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/imageButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -211,44 +214,7 @@
         android:layout_marginEnd="71dp"
         android:layout_marginRight="71dp"
         android:layout_toLeftOf="@+id/Price1"
-        app:srcCompat="@android:drawable/arrow_down_float" />
-
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
         app:srcCompat="@android:drawable/arrow_up_float" />
-
-
-    <ImageButton
-        android:id="@+id/imageButton5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="71dp"
-        android:layout_marginRight="71dp"
-        app:srcCompat="@android:drawable/arrow_down_float" />
-
-    <ImageButton
-        android:id="@+id/imageButton6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="130dp"
-        android:layout_marginEnd="71dp"
-        android:layout_marginRight="71dp"
-        app:srcCompat="@android:drawable/arrow_down_float" />
 
     <ImageButton
         android:id="@+id/imageButton7"
@@ -257,27 +223,50 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        app:srcCompat="@android:drawable/arrow_down_float" />
+
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginRight="71dp"
+        app:srcCompat="@android:drawable/arrow_up_float" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginRight="71dp"
+        app:srcCompat="@android:drawable/arrow_up_float" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="170dp"
         android:layout_marginEnd="71dp"
         android:layout_marginRight="71dp"
-        app:srcCompat="@android:drawable/arrow_down_float" />
+        app:srcCompat="@android:drawable/arrow_up_float" />
 
     <ImageButton
-        android:id="@+id/imageButton8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/imageButton9"
-        android:layout_below="@+id/imageButton7"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="71dp"
-        android:layout_marginRight="71dp"
-        android:layout_marginBottom="11dp"
-        app:srcCompat="@android:drawable/arrow_down_float" />
-
-    <ImageButton
-        android:id="@+id/imageButton9"
+        android:id="@+id/imageButton5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -286,6 +275,28 @@
         android:layout_marginTop="210dp"
         android:layout_marginEnd="71dp"
         android:layout_marginRight="71dp"
+        app:srcCompat="@android:drawable/arrow_up_float" />
+
+    <ImageButton
+        android:id="@+id/imageButton8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        app:srcCompat="@android:drawable/arrow_down_float" />
+
+    <ImageButton
+        android:id="@+id/imageButton9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="170dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
         app:srcCompat="@android:drawable/arrow_down_float" />
 
     <ImageButton
@@ -294,40 +305,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="130dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        app:srcCompat="@android:drawable/arrow_up_float" />
-
-    <ImageButton
-        android:id="@+id/imageButton11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="170dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        app:srcCompat="@android:drawable/arrow_up_float" />
-
-    <ImageButton
-        android:id="@+id/imageButton12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_marginTop="210dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        app:srcCompat="@android:drawable/arrow_up_float" />
+        app:srcCompat="@android:drawable/arrow_down_float" />
 
 
     <TextView
         android:id="@+id/quantityTextView4"
-        android:text="1"
+        android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/imageButton11"
+        android:layout_toLeftOf="@+id/imageButton9"
         android:layout_below="@id/quantityTextView3"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
@@ -335,7 +324,7 @@
 
     <TextView
         android:id="@+id/quantityTextView5"
-        android:text="1"
+        android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/imageButton9"
@@ -365,6 +354,6 @@
         android:paddingLeft="30dp"
         android:paddingTop="30px"
         android:paddingRight="0dp"
-        android:text="total" />
+        android:text="Total" />
 
 </RelativeLayout>
