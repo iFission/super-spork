@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Orders">
+
+    <TextView
+        android:id="@+id/StillCooking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Still Cooking"
+        android:textColor="#991F15"
+        android:textColorHighlight="#00EBD3D3"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/Order1CookingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#EFF1D6"
+        android:clickable="true"
+        android:paddingLeft="100dp"
+        android:paddingTop="20dp"
+        android:paddingRight="100dp"
+        android:paddingBottom="20dp"
+        android:text="Order #1"
+        android:textAlignment="center"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/Order2CookingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#EFF1D6"
+        android:clickable="true"
+        android:paddingLeft="100dp"
+        android:paddingTop="20dp"
+        android:paddingRight="100dp"
+        android:paddingBottom="20dp"
+        android:text="Order #2"
+        android:textAlignment="center"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/Order3CookingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#EFF1D6"
+        android:clickable="true"
+        android:paddingLeft="100dp"
+        android:paddingTop="20dp"
+        android:paddingRight="100dp"
+        android:paddingBottom="20dp"
+        android:text="Order #2"
+        android:textAlignment="center"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/Order4CookingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:background="#EFF1D6"
+        android:clickable="true"
+        android:paddingLeft="100dp"
+        android:paddingTop="20dp"
+        android:paddingRight="100dp"
+        android:paddingBottom="20dp"
+        android:text="Order #2"
+        android:textAlignment="center"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Go Collect!"
+        android:textColor="#991F15"
+        android:textColorHighlight="#00EBD3D3"
+        android:textSize="30dp"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/Order1CollectTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#EFF1D6"
+        android:clickable="true"
+        android:paddingLeft="100dp"
+        android:paddingTop="20dp"
+        android:paddingRight="100dp"
+        android:paddingBottom="20dp"
+        android:text="Order #1"
+        android:textAlignment="center"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/Order2CollectTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#EFF1D6"
+        android:clickable="true"
+        android:paddingLeft="100dp"
+        android:paddingTop="20dp"
+        android:paddingRight="100dp"
+        android:paddingBottom="20dp"
+        android:text="Order #2"
+        android:textAlignment="center"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/Order3CollectTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#EFF1D6"
+        android:clickable="true"
+        android:paddingLeft="100dp"
+        android:paddingTop="20dp"
+        android:paddingRight="100dp"
+        android:paddingBottom="20dp"
+        android:text="Order #2"
+        android:textAlignment="center"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/Order4CollectTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:background="#EFF1D6"
+        android:clickable="true"
+        android:paddingLeft="100dp"
+        android:paddingTop="20dp"
+        android:paddingRight="100dp"
+        android:paddingBottom="20dp"
+        android:text="Order #2"
+        android:textAlignment="center"
+        android:textColor="#000000" />
+
+</LinearLayout>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="♨Western Food♨"
+        android:textAlignment="center"
+        android:textColor="#991F15"
+        android:textColorHighlight="#00EBD3D3"
+        android:textSize="30dp"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#EFF1D6">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/blackpepperchickenchop"/>
+
+    <TextView
+            android:id="@+id/ChickenChopTextView"
+            android:layout_width="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:paddingLeft="50dp"
+            android:paddingTop="30dp"
+            android:paddingRight="40dp"
+            android:paddingBottom="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Chicken Chop     $4"/>
+
+        <ImageButton
+            android:id="@+id/ChickenChopButton"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="10dp"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/FriesTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Fries"
+            android:background="#E6E6A0"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"/>
+
+        <Button
+            android:id="@+id/FriesButton"
+            android:text="1.5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/NuggetsTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Nuggets"
+            android:background="#EFF1D6"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:textAlignment="center"
+            android:textColor="#000000"/>
+
+        <Button
+            android:id="@+id/NuggetsButton"
+            android:text="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/SteakTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E6E6A0"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:text="Steak"/>
+
+        <Button
+            android:id="@+id/SteakButton"
+            android:text="5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/spaghettiTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="spaghetti"
+            android:background="#EFF1D6"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:textAlignment="center"
+            android:textColor="#000000"/>
+
+        <Button
+            android:id="@+id/spaghettiButton"
+            android:text="3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/Cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Cart" />
+
+    <Button
+        android:id="@+id/Trial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Trial" />
+
+    </LinearLayout>
+</ScrollView>

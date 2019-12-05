@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VendorwRecycler</string>
+    <string name="app_name">NoQueueVendor</string>
     <string name="action_settings">Settings</string>
     <string name="enter_item">Enter Item</string>
     <string name="hint_item">Enter Item</string>
