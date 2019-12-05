@@ -7,6 +7,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -238,7 +239,10 @@ public class Orders extends AppCompatActivity {
     }
 
     private void displayNotification(){
-        NotificationCompat.Builder notiBuilder = new NotificationCompat.Builder(this,CHANNEL_ID).setSmallIcon(R.drawable.add_icon).setContentTitle("Order Ready!").setContentText("Your meal is ready for collection!").setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        Intent resultingIntent = new Intent(this,Orders.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this,1,resultingIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder notiBuilder = new NotificationCompat.Builder(this,CHANNEL_ID).setSmallIcon(R.drawable.served).setContentTitle("Order Ready!").setContentText("Your meal is ready for collection!").setPriority(NotificationCompat.PRIORITY_DEFAULT).setContentIntent(resultPendingIntent).setAutoCancel(true);
 
         NotificationManagerCompat notiManager = NotificationManagerCompat.from(this);
         notiManager.notify(1,notiBuilder.build());
