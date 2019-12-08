@@ -27,6 +27,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.MessageFormat;
 import java.util.List;
+/*
+
+This class is responsible for populating the card view that contains each individual Menu item that is retrieved from Firebase.
+It also allows for the Vendor to update or delete any Menu item. This change in data is also updated on Firebase as the Vendor
+does on their app.
+
+ */
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
@@ -36,8 +43,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private AlertDialog dialog;
     private LayoutInflater inflater;
 
-    DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
-    DatabaseReference mfoodRef = mRootRef.child("Menu");
+    DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   // Finds the root of the connected firebase database
+    DatabaseReference mfoodRef = mRootRef.child("Menu");                         // Specifies the child that is to be created/updated
 
 
     public RecyclerViewAdapter(Context context, List<Item> itemList) {
@@ -54,6 +61,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return new ViewHolder(view, context);
     }
 
+    //Prepares the items from the itemList ArrayList to be displayed on the Card View, list_row.
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder viewHolder, int position) {
 
@@ -64,11 +72,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         viewHolder.quantity.setText(MessageFormat.format("Food Code:{0}", item.getDescription()));
         viewHolder.description.setVisibility(View.INVISIBLE);
         viewHolder.dateAdded.setVisibility(View.INVISIBLE);
-        //viewHolder.description.setText(MessageFormat.format("Description: {0}", item.getDescription()));
-        //viewHolder.dateAdded.setText("Date added: "+item.getDateItemadded());
-
-
-
     }
 
     @Override
@@ -76,6 +79,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return itemList.size();
     }
 
+
+    /*
+    Dictates what each card on the Card View on the Recycler View looks like. Instantiates all the buttons and text boxes that are
+    described on the list_row.xml file and binds to their data source. Also provides the necessary action that each text box or
+    button needs to perform.
+     */
     public  class ViewHolder  extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView itemName;
         public TextView itemprice;
@@ -90,6 +99,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             context= ctx;
 
+            // Referencing and Binding the textboxes and buttons that are on the card.
             itemName= itemView.findViewById(R.id.item_name);
             itemprice = itemView.findViewById(R.id.item_price);
             quantity= itemView.findViewById(R.id.item_quantity);
@@ -105,6 +115,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         }
 
+        // Giving function to the buttons that are found on the Card view.
+        // Namely the save and edit buttons. Each calling its respective functions to change the Meny data.
         @Override
         public void onClick(View v) {
 
@@ -129,6 +141,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         }
 
+        /*
+        Method for deleting a Menu item from local database and Firebase. Constructs a confirmation pop-up to ensure that
+        Vendor would like to delete the Menu item
+         */
         private void deleteItem(final int id) {
             builder= new AlertDialog.Builder(context);
             inflater= LayoutInflater.from(context);
@@ -153,22 +169,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 @Override
                 public void onClick(View v) {
                     DataBaseHandler db = new DataBaseHandler(context);
+
+                    // Delete Menu from Firebase
                     mfoodRef.child("Menu"+itemList.get(getAdapterPosition()).getDescription()).removeValue();
 
+                    // Delete Menu from local Database
                     db.deleteItem(id);
+
+                    // Let the adapter know that an item has been removed.
                     itemList.remove(getAdapterPosition());
                     notifyItemRemoved(getAdapterPosition());
                     dialog.dismiss();
-
-
                 }
             });
-
-
-
-
-
         }
+
+        /*
+        Method to allow for the existing Menu item to be updated. Creates a new pop-up dialog
+        to retrieve the information that is to be updated.
+         */
         private void editItem(final Item newItem) {
             //Item item = itemList.get(getAdapterPosition());
 
@@ -220,6 +239,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                         dataBaseHandler.updateItem(newItem);
                         Menu updateMenu = new Menu(newItem.getItemName(),newItem.getPrice_double(),newItem.getDescription());
+
+                        // Updating the Menu item in Firebase
                         mfoodRef.child("Menu"+newItem.getDescription()).setValue(updateMenu);
                         notifyItemChanged(getAdapterPosition(), newItem); // so user dont need to refresh to see the after edit
 
@@ -230,10 +251,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
     }
-
-
-
-
     }
 }
 

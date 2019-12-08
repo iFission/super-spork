@@ -31,7 +31,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+/*
 
+This class is responsible for displaying the activity_list layout that shows all the Menu items that the Vendor
+currently has, and allows the Vendor to add new items. This data on the Menu is retrieved from Firebase.
+
+ */
 
 public class ListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -48,40 +53,41 @@ public class ListActivity extends AppCompatActivity {
     private EditText description;
     private Button homeButton;
 
-    DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
-    DatabaseReference mfoodRef = mRootRef.child("Menu");
-    DatabaseReference mcustomerRef = mRootRef.child("CustomerList").child("Customer1");
-    DatabaseReference mWesternStall = mRootRef.child("WesternOrderQueue");
+
+    DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();      // Finds the root of the connected firebase database
+    DatabaseReference mfoodRef = mRootRef.child("Menu");                            // Specifies the child that is to be created/updated
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
-        recyclerView= findViewById(R.id.recyclerview);
-        fab= findViewById(R.id.fab);
-        homeButton= findViewById(R.id.homeButton);
+        setContentView(R.layout.activity_list);                                     // Defines the layout to start when this activity is invoked
 
+        // Instantiating the necessary objects to be used in the Activity
+        recyclerView= findViewById(R.id.recyclerview);                              // Recycler View to show the Menu
+        fab= findViewById(R.id.fab);                                                // Floating action button to act as add Menut button
+        homeButton= findViewById(R.id.homeButton);                                  // Button to allow Vendor to navigate back to the Home page
 
-
-        databaseHandler= new DataBaseHandler(this);
-        recyclerView.setHasFixedSize(true);
+        databaseHandler= new DataBaseHandler(this);                         // Instantiate the Database Holder that will contain the values for the recycler View
+        recyclerView.setHasFixedSize(true);                                         // Specify that all 'cards' in the recycler are of the same size.
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        itemList= new ArrayList<>();                                                // Instantiate the data structure to hold the items to be displayed on the Recycler View
 
-        itemList= new ArrayList<>();
-
-        //Get items from Firebase
+        // Use the Firebase references to get the values that are attached to the mfoodRef node
         mfoodRef.addValueEventListener(new ValueEventListener() {
-            //Will run everytime there is an update to the condition value in the database
-            //So this will run when the .setValue function runs in the button onClickListener classes
             @Override
+            // This method is invoked at the start of an activity and whenever there is a data change on the database.
+            // Returns all the information as a DataSnapshot object that contain information about every node in the reference.
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //tempitemlist.clear();
-                Iterable<DataSnapshot> databaseMenu = dataSnapshot.getChildren();
+                Iterable<DataSnapshot> databaseMenu = dataSnapshot.getChildren();               // Store the DataSnapshots for each child from the reference in an Iterable format for easy access.
+
+                /*
+                    This for loop loops through each Menu item that is in the mfoodRef Firebase reference and loads it into the DataBase Handler to be displayed on the Recycler View
+                */
                 for (DataSnapshot data:databaseMenu){
-                    Menu tempMenu = data.getValue(Menu.class);
+                    Menu tempMenu = data.getValue(Menu.class);                                  // Access each Snapshot as Menu to be later changed to an Item
                     Item tempItem = new Item(tempMenu.getFoodName(),tempMenu.getFoodCode(),tempMenu.getFoodPrice());
-                    databaseHandler.addItem(tempItem);
+                    databaseHandler.addItem(tempItem);                                          // Load each Item object into the databaseHandler to store the items
                 }
             }
 
@@ -92,26 +98,25 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
+         itemList = databaseHandler.getAllItems();                                              // ArrayList that contains the information to be displayed on the Recycler View
 
-         itemList = databaseHandler.getAllItems();
-
-         recyclerViewAdapter= new RecyclerViewAdapter(this,itemList);
+         recyclerViewAdapter= new RecyclerViewAdapter(this,itemList);                   // Adapter that takes care of preparing the Items in the itemList array for display
          recyclerView.setAdapter(recyclerViewAdapter);
-         recyclerViewAdapter.notifyDataSetChanged();
+         recyclerViewAdapter.notifyDataSetChanged();                                            // Lets the adapter know if there are any new Items that need to be displayed
 
+        /*
+            Button that is responsible for asking for and saving any new Menu items that the vendor might have.
+            Create a PopUpDialog when clicked. This allows the vendor to input new Menu information to be saved.
+         */
          fab.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
                  createPopDialog();
 
              }
-
-
-
-
-
-             
          });
+
+         // Returns the Activity to the main Home from the current activity
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +126,10 @@ public class ListActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    Creates a pop-up dialog to gather information on the new Menu item.
+    If all the input boxes are not empty, the Menu item is saved.
+     */
     private void createPopDialog() {
         builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.popup, null);
@@ -131,20 +140,19 @@ public class ListActivity extends AppCompatActivity {
         saveButton = view.findViewById(R.id.saveButton);
         description.setVisibility(View.INVISIBLE);
 
-
-
         builder.setView(view);
         alertDialog= builder.create();
         alertDialog.show();
 
-
+        // Saves the new Menu only if all the text boxes have been filled with information.
+        // Else displays a prompt for the user to fill all the necessary details.
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (!foodItem.getText().toString().isEmpty()
                         && !price.getText().toString().isEmpty()
-                        && !itemQuantity.getText().toString().isEmpty()) {                          //&& !description.getText().toString().isEmpty()
+                        && !itemQuantity.getText().toString().isEmpty()) {
                     saveItem(v);
                 }else {
                     Snackbar.make(v, "Empty Fields not Allowed", Snackbar.LENGTH_SHORT)
@@ -156,13 +164,17 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
+    /*
+    Method to save the data that is input into the pop-up dialog.
+    Only saves the information if the foodCode does not already exist in the database of Menu items.
+    If the item does not exist in the database, the item is added to the database and is added as new child to the Firebase database that is referenced using mfoodRef
+    Else, displays a toast that prompts the user to re-enter the new details.
+     */
     private void saveItem(View view) {
-        //Todo: save each food item to db
         Item item= new Item();
 
         String newItem= foodItem.getText().toString().trim();
         double newPrice= Double.parseDouble(price.getText().toString().trim());
-        //int newQuantity= Integer.parseInt(itemQuantity.getText().toString().trim());
         String newDescription = itemQuantity.getText().toString().trim();
 
         if (databaseHandler.hasObject(newDescription)){
@@ -179,10 +191,11 @@ public class ListActivity extends AppCompatActivity {
             item.setPrice_double(newPrice);
             item.setItemQuantity(0);
 
+            // Adding to Local Database
             databaseHandler.addItem(item);
             Snackbar.make(view,"Item Saved", Snackbar.LENGTH_SHORT).show();
 
-            //Adding to Firebase
+            // Adding to Firebase
             String childName = "Menu"+newDescription;
             mfoodRef.child(childName).setValue(new Menu(newItem,newPrice,newDescription));
 
@@ -191,8 +204,6 @@ public class ListActivity extends AppCompatActivity {
                 public void run() {
                     //code to be run
                     alertDialog.dismiss();
-                    //Todo: move to next screen- details screen
-
                     startActivity(new Intent(ListActivity.this, MainActivity.class ));
                     finish();
 

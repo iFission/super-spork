@@ -30,19 +30,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class Home extends AppCompatActivity {
-//    TextView textView1;
-//    TextView textView2;
-//    TextView textView3;
-//    TextView textView4;
-//    TextView textView5;
-    FloatingActionButton addmenuitembutton;
-    HashMap<String ,String> todayMenu = new HashMap<>();                //FoodCode : FoodMenu
-    ArrayList<OrderDetails> currentOrders = new ArrayList<>();
-    HashMap<String,String> viewTexts = new HashMap<>();                 //OrderCode : (FoodName + FoodCode)
-    TextView[] textViews = new TextView[5];
-    ArrayList<String> foodCodes = new ArrayList<>();
+/*
 
+Activity that is responsible for showing the orders that the Vendors need to prepare.
+Retrieves the necessary orders from the WesterOrderQueue child of Firebase for display on the vendor app.
+Updates the necessary orders from the CustomerList, Customer1 child of Firebase to notify that the order has been cooked.
+
+ */
+public class Home extends AppCompatActivity {
+
+    FloatingActionButton addmenuitembutton;
+    HashMap<String ,String> todayMenu = new HashMap<>();                // Stored as FoodCode : FoodMenu
+    ArrayList<OrderDetails> currentOrders = new ArrayList<>();
+    HashMap<String,String> viewTexts = new HashMap<>();                 // Stored as OrderCode : (FoodName + FoodCode)
+    TextView[] textViews = new TextView[5];                             // List of TextViews for easier referencing
+    ArrayList<String> foodCodes = new ArrayList<>();                    // Contains all the foodCodes that are available
+
+    // Database References of all childs on Firebase that is used to retrieve and update information
     DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
     DatabaseReference mfoodRef = mRootRef.child("Menu");
     DatabaseReference mcustomerRef = mRootRef.child("CustomerList").child("Customer1");
@@ -52,7 +56,6 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-        // Use findViewById to get references to the widgets in the layout
 
         for(int i = 0; i < 5; i++) {
             textViews[i] = new TextView(this);
@@ -66,18 +69,11 @@ public class Home extends AppCompatActivity {
         addmenuitembutton= findViewById(R.id.addmenuitembutton);
 
 
-
-//        for (int i=0;i<5;i++){
-//            textViews[i].setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    textViews[i].setText("Order Completed");
-//                    textViews[i].setTextColor(Color.CYAN);
-//                }
-//            });
-//        }
-        //mWesternStall.child("100").removeValue();
-
+        /*
+        Text Views listen if the they are clicked. Once they are clicked, they update the online database
+        by deleting the respective child on the WesternOrderQueue child, and updating the orderStatus to
+        true of the respective child on the CustomerList,Customer1 child.
+         */
         textViews[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +140,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        // Switches over to the ListActivity class when clicked.
         addmenuitembutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,8 +152,6 @@ public class Home extends AppCompatActivity {
 
         //Retrieve menu from Firebase
         mfoodRef.addValueEventListener(new ValueEventListener() {
-            //Will run everytime there is an update to the condition value in the database
-            //So this will run when the .setValue function runs in the button onClickListener classes
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> databaseMenu = dataSnapshot.getChildren();
@@ -164,7 +159,6 @@ public class Home extends AppCompatActivity {
                     Menu tempMenu = data.getValue(Menu.class);
                     todayMenu.put(tempMenu.getFoodCode(),tempMenu.getFoodName());
                 }
-                //allFoodCodes = todayMenu.values();
             }
 
             // In case we run into any errors
@@ -174,6 +168,10 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        /*
+         If there is a change in the WesternOrderQueue child, due to the addition of an order from the Customer,
+         the text views on this activity have to be updated to show this change.
+         */
         mWesternStall.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
