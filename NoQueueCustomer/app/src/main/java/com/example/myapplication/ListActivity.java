@@ -31,8 +31,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/*
+
+This class is responsible for displaying the activity_main_recycler layout that shows all the Menu items, with
+ the name and price that the Vendor currently has. This data on the Menu is retrieved from Firebase, and is
+ shown as a RecyclerView.
+
+ */
 
 public class ListActivity extends AppCompatActivity {
+
+    // Variables that take values need to be sent to the next activity, Cart.
     public final static String ORDER1 = "ORDER1";
     public final static String ORDER2 = "ORDER2";
     public final static String ORDER3 = "ORDER3";
@@ -45,15 +54,6 @@ public class ListActivity extends AppCompatActivity {
     public final static String PRICE5 = "PRICE5";
     String[] orders = new String[5];
     String[] prices = new String[5];
-    String order2;
-    String order3;
-    String order4;
-    String order5;
-    String price1;
-    String price2;
-    String price3;
-    String price4;
-    String price5;
 
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -66,23 +66,20 @@ public class ListActivity extends AppCompatActivity {
     private EditText foodItem;
     private EditText itemQuantity;
     private EditText price;
-    private EditText description;
     private Button ordersButton;
 
-    DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();   //Gives you the root of the JSON tree
-    DatabaseReference mfoodRef = mRootRef.child("Menu");
-    DatabaseReference mcustomerRef = mRootRef.child("CustomerList").child("Customer1");
-    DatabaseReference mWesternStall = mRootRef.child("WesternOrderQueue");
+    DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();          // Finds the root of the connected firebase database
+    DatabaseReference mfoodRef = mRootRef.child("Menu");                                // Specifies the child that is to be created/updated
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_recycler);
+
+        // Instantiating the necessary objects to be used in the Activity
         recyclerView= findViewById(R.id.recyclerview);
         fab= findViewById(R.id.fab);
         ordersButton= findViewById(R.id.ordersButton);
-
-
 
         databaseHandler= new DataBaseHandler(this);
         recyclerView.setHasFixedSize(true);
@@ -91,15 +88,20 @@ public class ListActivity extends AppCompatActivity {
 
         itemList= new ArrayList<>();
 
-        //Get items from Firebase
+        // Use the Firebase references to get the values that are attached to the mfoodRef node
         mfoodRef.addValueEventListener(new ValueEventListener() {
-            //Will run everytime there is an update to the condition value in the database
-            //So this will run when the .setValue function runs in the button onClickListener classes
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //tempitemlist.clear();
                 int i =0;
                 Iterable<DataSnapshot> databaseMenu = dataSnapshot.getChildren();
+
+                 /*
+                    This for loop loops through each Menu item that is in the mfoodRef Firebase reference
+                    and loads it into the DataBase Handler to be displayed on the Recycler View. It also
+                    adds the Menu items into the orders and prices String arrays that is sent to the
+                    Cart Activity via an intent.
+                */
+
                 for (DataSnapshot data:databaseMenu){
                     Menu tempMenu = data.getValue(Menu.class);
                     Item tempItem = new Item(tempMenu.getFoodName(),tempMenu.getFoodCode(),tempMenu.getFoodPrice());
@@ -117,13 +119,13 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-
         itemList = databaseHandler.getAllItems();
 
         recyclerViewAdapter= new RecyclerViewAdapter(this,itemList);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();
 
+        // Send the values from this activity to Cart when this button is pressed.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,6 +150,8 @@ public class ListActivity extends AppCompatActivity {
 
 
         });
+
+        // Button that brings the user to the activity in the Orders class.
         ordersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,82 +159,5 @@ public class ListActivity extends AppCompatActivity {
                 startActivityForResult(intent,0);
             }
         });
-    }
-
-    private void createPopDialog() {
-        builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.popup, null);
-        foodItem = view.findViewById(R.id.foodItem);
-        price = view.findViewById(R.id.item_price);
-        saveButton = view.findViewById(R.id.saveButton);
-
-        builder.setView(view);
-        alertDialog= builder.create();
-        alertDialog.show();
-
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (!foodItem.getText().toString().isEmpty()
-                        && !price.getText().toString().isEmpty()
-                        && !itemQuantity.getText().toString().isEmpty()) {                          //&& !description.getText().toString().isEmpty()
-                    saveItem(v);
-                }else {
-                    Snackbar.make(v, "Empty Fields not Allowed", Snackbar.LENGTH_SHORT)
-                            .show();
-                }
-
-            }
-        });
-
-    }
-
-    private void saveItem(View view) {
-        //Todo: save each food item to db
-        Item item= new Item();
-
-        String newItem= foodItem.getText().toString().trim();
-        double newPrice= Double.parseDouble(price.getText().toString().trim());
-        //int newQuantity= Integer.parseInt(itemQuantity.getText().toString().trim());
-        String newDescription = itemQuantity.getText().toString().trim();
-
-        if (databaseHandler.hasObject(newDescription)){
-            Context context = getApplicationContext();
-            CharSequence text = "OrderCode exists, menu not saved";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-        }
-        else{
-            item.setItemName(newItem);
-            item.setDescription(newDescription);
-            item.setPrice_double(newPrice);
-            item.setItemQuantity(0);
-
-            databaseHandler.addItem(item);
-            Snackbar.make(view,"Item Saved", Snackbar.LENGTH_SHORT).show();
-
-            //Adding to Firebase
-            String childName = "Menu"+newDescription;
-            mfoodRef.child(childName).setValue(new Menu(newItem,newPrice,newDescription));
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    //code to be run
-                    alertDialog.dismiss();
-                    //Todo: move to next screen- details screen
-
-                    startActivity(new Intent(ListActivity.this, MainActivity.class ));
-                    finish();
-
-
-                }
-            },1200);
-        }
-
     }
 }

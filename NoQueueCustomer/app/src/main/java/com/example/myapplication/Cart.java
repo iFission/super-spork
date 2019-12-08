@@ -18,6 +18,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+/*
+
+Class that is responsible for retrieving which food items that the customer would like to order and in
+what quantities. This information is then updated to the CustomerList,Customer1 child and the WesterOrderQueue
+child.
+
+ */
+
 public class Cart extends AppCompatActivity {
     int i1=0;
     int i2=0;
@@ -41,6 +49,8 @@ public class Cart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        // Retrieve the information that is passed from the previous activity via an intent and store their
+        // values onto variables to be used.
         Intent mainToCart = getIntent();
         String order1  = mainToCart.getStringExtra(MainActivity.ORDER1);
         price1 = mainToCart.getStringExtra(MainActivity.PRICE1);
@@ -70,7 +80,6 @@ public class Cart extends AppCompatActivity {
         Order2.setText(order2);
         Order3.setText(order3);
         Order4.setText(order4);
-        //Order5.setVisibility(View.INVISIBLE);
         Order5.setText(order5);
         Price1.setText(price1);
         Price2.setText(price2);
@@ -97,6 +106,10 @@ public class Cart extends AppCompatActivity {
         ImageButton[] imageButtons = {imageButton1,imageButton2,imageButton3,imageButton4,imageButton5,imageButton6,imageButton7,imageButton8,imageButton9,imageButton10};
         TextView[] quantityTVs = {textView1,textView2,textView3,textView4,textView5};
 
+        /*
+         If no information is received for the previous activity via the intent, set the respective buttons
+         quantity text vies to invisible.
+         */
         for (int z=0; z<5; z++){
             if(prices[z]==null){
                 imageButtons[z].setVisibility(View.INVISIBLE);
@@ -104,6 +117,14 @@ public class Cart extends AppCompatActivity {
                 quantityTVs[z].setVisibility(View.INVISIBLE);
             }
         }
+
+        /*
+        Buttons that are responsible for changing the quantity and the price of the items that the customer
+        would like to order. The buttons are paired in the way of imageButton[i] and imageButtong[i+5], where
+        is 0<i<6. The numbers from  1 to 5 are responsible for increasing the quantity number, while the
+        numbers from 6 to 10 are for decreasing the quantity number. When the buttons are clicked, they are
+        also responsible for increasing/decreasing the value of the total that needs to be payed.
+         */
 
         imageButton1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -293,6 +314,11 @@ public class Cart extends AppCompatActivity {
             }
         });
 
+        /*
+        When the order button is clicked, the user is affirmed of the order through a toast, and the
+        collated orders are updated on the WesterOrderQueue child and the CustomerList,Customer1 child.
+        The order is written to Firebase based on class OrderDetails.
+         */
         Button orderbutton = findViewById(R.id.Ordernow);
         orderbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -322,7 +348,7 @@ public class Cart extends AppCompatActivity {
                     CustomerOrder.add(new OrderDetails("002",20+j,false));
                 }
 
-                //Responsible for writing the order to Firebase Western Order Queue tree
+                //Responsible for writing the order to Firebase Western Order Queue tree and CustomerList treee
                 for (OrderDetails orders: CustomerOrder){
                     mWesternStall.child(Integer.toString(orders.getOrderCode())).setValue(orders);
                     mcustomerRef.child(Integer.toString(orders.getOrderCode())).setValue(orders);
@@ -330,6 +356,7 @@ public class Cart extends AppCompatActivity {
             }
         });
 
+        // Starts the next Orders activity when clicked
         Button myOrders = findViewById(R.id.MyOrders);
         myOrders.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -67,20 +67,11 @@ public class Orders extends AppCompatActivity {
 
          HomeButt = findViewById(R.id.backhome);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = CHANNEL_NAME;
-            String description = CHANNEL_DESC;
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-
-
+        /*
+        Text views that display the items that are ready for collection need to be clickable so that
+        the customer can confirm that they have received the order, to update Firebase. Once the textView
+        is clicked, we delete the respective child from the CustomerList,Customer1 tree.
+         */
         cookedViews[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,6 +124,10 @@ public class Orders extends AppCompatActivity {
             }
         });
 
+        /*
+         Retrieve the Menu for the day since the information stored on the CustomerList,Customer1 tree
+         does not contain the name of the food that the customer ordered.
+         */
         mfoodRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -141,7 +136,6 @@ public class Orders extends AppCompatActivity {
                     Menu tempMenu = data.getValue(Menu.class);
                     todayMenu.put(tempMenu.getFoodCode(),tempMenu.getFoodName());
                 }
-                //allFoodCodes = todayMenu.values();
             }
 
             // In case we run into any errors
@@ -151,6 +145,12 @@ public class Orders extends AppCompatActivity {
             }
         });
 
+        /*
+        Retrieve all the orders from the CustomerList,Customer1 tree. Seperate them as orders to be cooked,
+        and orders that have been cooked by looking at the value of the orderStatus from each order. If true,
+        the order has been cooked, and is added to the Go Collect! textViews. If false, the order is yet to
+         be cooked, and is added to the Still Cooking textViews.
+         */
         mcustomerRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -187,7 +187,7 @@ public class Orders extends AppCompatActivity {
                     i++;
                 }
 
-                //Hide Text Views if insufficient orders.
+                //Hide Text Views if insufficient orders to be completed.
                 while (i<4){
                     cookingViews[i].setVisibility(View.INVISIBLE);
                     i++;
@@ -201,7 +201,7 @@ public class Orders extends AppCompatActivity {
                     j++;
                 }
 
-                //Hide Text Views if insufficient orders.
+                //Hide Text Views if insufficient orders are completed.
                 while (j<4){
                     cookedViews[j].setVisibility(View.INVISIBLE);
                     j++;
@@ -217,6 +217,7 @@ public class Orders extends AppCompatActivity {
             }
         });
 
+        // Opens the ListActivity activity. Used as a navigation button
         HomeButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,6 +227,14 @@ public class Orders extends AppCompatActivity {
         });
 
     }
+
+    /*
+    Method that is used to check if a new order has been cooked, and is ready for collection. This is
+    done by comparing the size of the cookedTexts HashMap listening the changes on Firebase, and the previousCooked
+    HashMap which acts as the previous version of the cookedText array. If there are more items in the
+    cookedTexts HashMap, this means that a new order has been added to the Go Collect! section and a notification
+    is fired. This method is invoked in the OnDataChange method.
+     */
     public void ifDataChanged(){
         if(cookedTexts.size()>previousCooked.size()){
             //Send notification
@@ -238,6 +247,11 @@ public class Orders extends AppCompatActivity {
         }
     }
 
+    /*
+    This is the method that is responsible for sending a notification to collect an order.
+    When this notification is clicked, it opens a the Orders activity page to show the Order
+    to be collected. This method is invoked in the ifDataChanged method
+     */
     private void displayNotification(){
         Intent resultingIntent = new Intent(this,Orders.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this,1,resultingIntent,PendingIntent.FLAG_UPDATE_CURRENT);

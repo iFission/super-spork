@@ -83,7 +83,8 @@ public class ListActivity extends AppCompatActivity {
                 Iterable<DataSnapshot> databaseMenu = dataSnapshot.getChildren();               // Store the DataSnapshots for each child from the reference in an Iterable format for easy access.
 
                 /*
-                    This for loop loops through each Menu item that is in the mfoodRef Firebase reference and loads it into the DataBase Handler to be displayed on the Recycler View
+                    This for loop loops through each Menu item that is in the mfoodRef Firebase reference
+                    and loads it into the DataBase Handler to be displayed on the Recycler View
                 */
                 for (DataSnapshot data:databaseMenu){
                     Menu tempMenu = data.getValue(Menu.class);                                  // Access each Snapshot as Menu to be later changed to an Item

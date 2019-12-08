@@ -24,6 +24,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/*
+
+-------------------------------------------------------------------------------------------------------------
+
+
+    THIS ACTIVITY IS NO LONGER USED. IT IS SUPERSEEDED BY LISTACTIVITY WHICH IMPLEMENTS A RECYCLERVIEW.
+
+
+--------------------------------------------------------------------------------------------------------------
+
+ */
 
 public class MainActivity extends AppCompatActivity {
     //Debug TAG
@@ -169,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //DO NOT DELETE! Use as reference for future database calls.
+
 //        Menu mexican_chop = new Menu("Mexican Chicken Chop",4.5, "001");
 //        mfoodRef.child("Menu").setValue(mexican_chop);
 //        Menu aglio_olio = new Menu("Aglio Olio", 4.5, "002");
@@ -225,6 +238,8 @@ public class MainActivity extends AppCompatActivity {
                 FriesTextView.setText(text2.getFoodName());
                 FriesPrice.setText(Double.toString(text2.getFoodPrice()));
                 //FriesButton.setText("fklasjdf");
+
+                // DO NOT DELETE! Use as reference for future database calls
 
 //                DataSnapshot foodmenu3 = dataSnapshot.child("Menu2");
 //                Menu text3 = foodmenu3.getValue(Menu.class);
