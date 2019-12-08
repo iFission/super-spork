@@ -34,7 +34,8 @@ import com.google.firebase.database.ValueEventListener;
 /*
 
 This class is responsible for displaying the activity_list layout that shows all the Menu items that the Vendor
-currently has, and allows the Vendor to add new items. This data on the Menu is retrieved from Firebase.
+currently has, and allows the Vendor to add new items. This data on the Menu is retrieved from Firebase and is
+displayed in a recyclerView format.
 
  */
 
