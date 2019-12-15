@@ -1,4 +1,3 @@
 # super-spork
 ---------------------------------------------------------------------------------
-Customer App: NoQueueCustomer
-Vendor App: ProjVendorApp
+Customer App: NoQueueCustomer | Vendor App: ProjVendorApp
